@@ -78,12 +78,11 @@ This project and case study is supported by TasNetworks.
 
 
 \section{Proposed Forecasting System}
-Recurrent Neural Networks (RNN) have recently been popular for load forecasting (cite blah).
-Transformer models have achieved greater performance than RNNs in many language tasks (openAI).
-(Transformer now justified for research).
-This forecasting system uses a Transformer neural network model combined with similar day selection.
+Recurrent Neural Networks (RNN) have recently been popular for load forecasting \cite{Kong2018}.
+However, RNNs have been out-performed by the Transformer model in several domains including machine translation \cite{Vaswani2017}, medical time series forecasting and regression \cite{Song2017}, and image generation \cite{Parmar2018}.
+The proposed forecasting system uses a Transformer neural network model combined with similar day selection.
 \par
-This paper will present the transformer model, and then discuss its application in a case study.
+Given a multivariate time series $X = (x_1, ..., x_T)$, with $x_t \in \mathbb{R}^N$ denoting a point in time comprised of N observations, the forecasting system takes X and produces a univariate time series forecast $Y = (y_1, ..., y_U)$ with $y_t \in \mathbb{R}^1$.
 
 \subsection{Transformer}
 Use Attention is all You Need, and Attend and Diagnose as reference.
