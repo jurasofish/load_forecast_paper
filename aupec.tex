@@ -85,15 +85,23 @@ The proposed forecasting system uses a Transformer neural network model combined
 Given a multivariate time series $X = (x_1, ..., x_T)$, with $x_t \in \mathbb{R}^N$ denoting a point in time comprised of N observations, the forecasting system takes X and produces a univariate time series forecast $Y = (y_1, ..., y_U)$ with $y_t \in \mathbb{R}^1$.
 
 \subsection{Similar Day}
-Simple Euclidean distance between max/min temp, day of week, holiday type.
+Load profiles are influenced by exogenous factors such as weather, day of the week, and holiday status \cite{Weron2006}.
+The forecast accuracy was improved by finding days with similar exogenous data and providing them as input to the system.
+First, candidate similar days were identified by ensuring the hour and minute match, and the day was an integer multiple of 1 year $\pm$30 days away from the day to be forecast. As historical data 
+Then the candidate days with the lowest weighted euclidean distance between their max temp, min temp, day of week, holiday type, and previous day maximum load and the same parameters of the day to be forecast were selected as the similar days.
+The corresponding historical weather data for each similar day was also supplied as an input.
 
 \subsection{Transformer}
-Use Attention is all You Need, and Attend and Diagnose as reference.
-Sequence in, sequence out. Self attention.
+The transformer neural network architecture was introduced by \cite{Vaswani2017} in 2017. 
+It was adapted by \cite{Song2017} to perform time series forecasting in a medical context.
+The same adaptations have been made here to use the transformer for electrical load forecasting.
 
 \section{Case Study}
 The forecasting system was applied to Bruny Island.
 Also discuss application to a common dataset for comparison with other papers?
+
+The forecasting system was configured with the parameters in table ... .
+[Horizon: 24 hours, period: 30 minutes, 5 similar days, ]
 
 \subsection{Data}
 Discussion of available data and what was supplied to the forecasting system.
