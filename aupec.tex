@@ -44,7 +44,7 @@ component, formatting, style, styling, insert
 
 \section{Introduction}
 The modern distribution network has changed more over the last ten years than it has in the previous hundred.
-In the past, generation and load were largely separate; power was generated at large stations, and power was consumed by customers after traversing the transmission and distribution networks. 
+In the past, generation and load were largely separate; power was generated exclusively at large stations, and power was consumed by customers after traversing the transmission and distribution networks. 
 These days, power is still consumed in the distribution network, but is also generated and manipulated by distributed energy resources (DER). 
 \par
 DERs are controllable devices in the power network that generate, store, and consume load. 
@@ -58,11 +58,16 @@ The Tasmanian distribution network is forecast to experience significant increas
 \end{itemize}
 
 This changing network presents an opportunity to maximize the use of existing assets by delaying the need for network augmentations, while also providing customers with a more reliable supply of power.
-However, to achieve this requires sophisticated methods to optimize the power flow to and from the distributed resources \cite{Scott2014}.
+For example, batteries could be used to peak-shift, reducing maximum feeder load.
+However, to achieve this requires sophisticated methods to optimize the power flow to and from the distributed resources.
 \par
-One requirement for optimization is an accurate forecast of day-ahead load at the feeder level.
+One method to achieve this is presented in \cite{Scott2014} and has been implemented on Bruny Island, Tasmania.
+The island is a popular holiday destination and during peak periods, such as Easter morning/afternoon peaks, the submarine feeder supplying the island becomes overloaded and has to be supplemented by a diesel generator located on the island.
+The aim of the project was to peak shift the load away from the morning/afternoon and avoid the use of the generator.
+
+The method relies on having an accurate forecast of day-ahead load at the feeder level.
 Load forecasting methods commonly employed in industry are neither intended to forecast with high accuracy over a time period this short nor at such a low level in the distribution network \cite{CIGRE2016}.
-As a result, the optimization of the distributed resources is not as effective as it could be.
+As a result, the optimization of the distributed resources was not as effective as it could be.
 \par
 To solve this, a neural network-based load forecasting system is proposed.
 This system will be applied to Bruny Island, in southern Tasmania, as a case study.
