@@ -84,12 +84,12 @@ The proposed forecasting system uses a Transformer neural network model combined
 \par
 Given a multivariate time series $X = (x_1, ..., x_T)$, with $x_t \in \mathbb{R}^N$ denoting a point in time comprised of N observations, the forecasting system takes X and produces a univariate time series forecast $Y = (y_1, ..., y_U)$ with $y_t \in \mathbb{R}^1$.
 
+\subsection{Similar Day}
+Simple Euclidean distance between max/min temp, day of week, holiday type.
+
 \subsection{Transformer}
 Use Attention is all You Need, and Attend and Diagnose as reference.
 Sequence in, sequence out. Self attention.
-
-\subsection{Similar Day}
-Simple Euclidean distance between max/min temp, day of week, holiday type.
 
 \section{Case Study}
 The forecasting system was applied to Bruny Island.
