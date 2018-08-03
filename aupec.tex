@@ -85,18 +85,28 @@ This project and case study is supported by TasNetworks.
 
 \section{Proposed Forecasting System}
 Recurrent Neural Networks (RNN) have recently been popular for load forecasting \cite{Kong2018}.
-However, RNNs have been out-performed by the Transformer model in several domains including machine translation \cite{Vaswani2017}, medical time series forecasting and regression \cite{Song2017}, and image generation \cite{Parmar2018}.
-The proposed forecasting system uses a Transformer neural network model combined with similar day selection.
+However, RNNs have been out-performed by the Transformer \cite{Vaswani2017} model in several domains including machine translation \cite{Vaswani2017} (where the architecture was first proposed and applied), medical time series forecasting and regression \cite{Song2017}, and image generation \cite{Parmar2018}.
 \par
-Given a multivariate time series $X = (x_1, ..., x_T)$, with $x_t \in \mathbb{R}^N$ denoting a point in time comprised of N observations, the forecasting system takes X and produces a univariate time series forecast $Y = (y_1, ..., y_U)$ with $y_t \in \mathbb{R}^1$.
+The proposed forecasting system uses a Transformer neural network model combined with similar profile selection.
+\par
+Given a multivariate time series $X = (x_1, ..., x_T)$, with $x_t \in \mathbb{R}^N$ denoting a point in time comprised of N observations (a single point in an N-variate time series), the forecasting system produces a univariate time series forecast $Y = (y_1, ..., y_U)$ with $y_t \in \mathbb{R}^1$.
+\par
+The points in $X$ and $Y$ are evenly spaced, e.g. 30 or 60 minutes apart, and this is the same for both $X$ and $Y$.
+$X$ and $Y$ are aligned on any five minute interval, allowing the forecast to be updated every five minutes.
 
-\subsection{Similar Day}
+
+\subsection{Similar Profile Selection}
 Load profiles are influenced by exogenous factors such as weather, day of the week, and holiday status \cite{Weron2006}.
-The forecast accuracy was improved by finding days with similar exogenous data and providing them as input to the system.
-First, candidate similar days were identified by ensuring the hour and minute match, and the day was an integer multiple of 1 year $\pm$30 days away from the day to be forecast. As historical data 
-Then the candidate days with the lowest weighted euclidean distance between their max temp, min temp, day of week, holiday type, and previous day maximum load and the same parameters of the day to be forecast were selected as the similar days.
-The corresponding historical weather data for each similar day was also supplied as an input.
-
+Holiday status indicates which holiday the period is in - Easter or Christmas for example.
+These different holidays are assigned different integer identifiers (with no holiday assigned identifier 0) to form a time series.
+The forecasting system was provided with load profiles with similar exogenous data to the profile being forecast.
+\par
+Similar profiles were identified by first finding candidate similar profiles an integer multiple of 1 year $\pm$30 days away from the profile being forecast and filtering the candidates down to profiles with exactly matching hour and minute.
+The hour and minute used were in local time to account for changes around daylight savings.
+Then the weighted euclidean distance between the profile being forecast and each candidate profile was calculated using the following features: max temp, min temp, day of week, holiday type, and previous day maximum load. \textbf{(reconcile with code).}
+The candidate profiles with the lowest distance were selected to be used as input, and their corresponding historical weather data was also supplied as an input.
+\par
+Similar days were selected from both the past and the future, as the training data for the system is only five years.
 \subsection{Transformer}
 The transformer neural network architecture was introduced by \cite{Vaswani2017} in 2017. 
 It was adapted by \cite{Song2017} to perform time series forecasting in a medical context.
