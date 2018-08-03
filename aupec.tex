@@ -108,7 +108,8 @@ The candidate profiles with the lowest distance were selected to be used as inpu
 \par
 Similar days were selected from both the past and the future, as the training data for the system is only five years.
 \subsection{Transformer}
-The transformer neural network architecture was introduced by \cite{Vaswani2017} in 2017. 
+The transformer neural network architecture, shown in figure \ref{fig:transformer}, was introduced by \cite{Vaswani2017} in 2017 and at the time was the state of the art in neural machine translation.
+This architecture follows the standard sequence-to-sequence/encoder-decoder architecture: the encoder transforms an input $X = (x_1, ..., x_T)$ into a latent representation $Z = (z_1, ..., z_v)$, and the decoder transforms $Z$ into an output sequence $Y = (y_1, ..., y_U)$.
 It was adapted by \cite{Song2017} to perform time series forecasting in a medical context.
 
 \begin{figure}[htbp]
