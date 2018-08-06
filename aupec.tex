@@ -111,12 +111,30 @@ when training and testing the similar days were selected from both the past and 
 The transformer neural network architecture, shown in figure \ref{fig:transformer}, was introduced by \cite{Vaswani2017} in 2017 and at the time was the state of the art in neural machine translation.
 This architecture follows the standard sequence-to-sequence/encoder-decoder architecture: the encoder transforms an input $X = (x_1, ..., x_T)$ into a latent representation $Z = (z_1, ..., z_v)$, and the decoder transforms $Z$ into an output sequence $Y = (y_1, ..., y_U)$.
 It was adapted by \cite{Song2017} to perform time series forecasting in a medical context. \textbf{(Maybe ignore this?)}
+The individual sections of the transformer are discussed in the following sections.
 
 \begin{figure}[htbp]
 	\centerline{\includegraphics[width=.35\textwidth]{images/transformer_vaswani_copied.png}}
 	\caption{Transformer architecture. This has been copied from \cite{Vaswani2017} - todo reproduce.}
 	\label{fig:transformer}
 \end{figure}
+
+\subsection{Input Embedding}
+1D Convolution.
+
+\subsection{Positional Encoding}
+Pull column from matrix and add based on position in time series.
+
+\subsection{Multi-Head Attention}
+Scaled dot-product attention used multiple times, concatenated, and put through feedforward.
+Present a few equations, then explain intuitively.
+
+\subsection{Feedforward}
+weird double FF.
+
+\subsection{Add \& Norm}
+Need to refresh my memory on this one :)
+
 
 \section{Case Study}
 The forecasting system was applied to Bruny Island.
