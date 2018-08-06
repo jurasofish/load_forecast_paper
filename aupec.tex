@@ -99,18 +99,18 @@ $X$ and $Y$ are aligned on any five minute interval, allowing the forecast to be
 Load profiles are influenced by exogenous factors such as weather, day of the week, and holiday status \cite{Weron2006}.
 Holiday status indicates which holiday the period is in - Easter or Christmas for example.
 These different holidays are assigned different integer identifiers (with no holiday assigned identifier 0) to form a time series.
-The forecasting system was provided with load profiles with similar exogenous data to the profile being forecast.
+The forecasting system was provided with historical load profiles with similar exogenous data to the profile being forecast.
 \par
 Similar profiles were identified by first finding candidate similar profiles an integer multiple of 1 year $\pm$30 days away from the profile being forecast and filtering the candidates down to profiles with exactly matching hour and minute.
 The hour and minute used were in local time to account for changes around daylight savings.
 Then the weighted euclidean distance between the profile being forecast and each candidate profile was calculated using the following features: max temp, min temp, day of week, holiday type, and previous day maximum load. \textbf{(reconcile with code).}
 The candidate profiles with the lowest distance were selected to be used as input, and their corresponding historical weather data was also supplied as an input.
 \par
-Similar days were selected from both the past and the future, as the training data for the system is only five years.
+when training and testing the similar days were selected from both the past and the future, as the training data for the system is only five years.
 \subsection{Transformer}
 The transformer neural network architecture, shown in figure \ref{fig:transformer}, was introduced by \cite{Vaswani2017} in 2017 and at the time was the state of the art in neural machine translation.
 This architecture follows the standard sequence-to-sequence/encoder-decoder architecture: the encoder transforms an input $X = (x_1, ..., x_T)$ into a latent representation $Z = (z_1, ..., z_v)$, and the decoder transforms $Z$ into an output sequence $Y = (y_1, ..., y_U)$.
-It was adapted by \cite{Song2017} to perform time series forecasting in a medical context.
+It was adapted by \cite{Song2017} to perform time series forecasting in a medical context. \textbf{(Maybe ignore this?)}
 
 \begin{figure}[htbp]
 	\centerline{\includegraphics[width=.35\textwidth]{images/transformer_vaswani_copied.png}}
