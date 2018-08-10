@@ -142,7 +142,14 @@ Specifically, a matrix lookup table of embeddings $E$ of dimension $T \times d$ 
 
 \subsection{Multi-Head Attention}
 Scaled dot-product attention used multiple times, concatenated, and put through feedforward.
+Figure \ref{fig:multihead}.
 Present a few equations, then explain intuitively.
+
+\begin{figure}[htbp]
+	\centerline{\includegraphics[width=.35\textwidth]{images/multihead_attention_vaswani_copied.png}}
+	\caption{Multiheaded attention. This has been copied from \cite{Vaswani2017} - todo reproduce.}
+	\label{fig:multihead}
+\end{figure}
 
 \subsection{Feed-forward}
 The feed-forward network is a two layer network that is applied identically to each time step.
