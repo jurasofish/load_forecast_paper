@@ -161,11 +161,24 @@ Residual connections \cite{He2015} are applied around each sub-layer.
 That is, the output of each sub-layer is $x + $subLayer$(x)$ where subLayer$(x)$ is the original output of the sub-layer.
 The outputs are then normalized by applying layer normalization \cite{Ba2016}.
 
-\subsection{Dropout and regularization}
+\subsection{Dropout, regularization and training}
 Dropout is applied in the following positions:
 \begin{itemize}
 	\item At the output of the positional encoding. 
 	\item At the output of each multi-head attention sub-layer.
+	
+No regularization is applied to the model. 
+This is perhaps a shortcoming of the model, as L2 normalization may improve generalisation performance.
+The model is trained using the Adam optimizer \textbf{cite}.
+\end{itemize}
+
+\subsection{Hyper-parameters}
+The following are the model hyperparameters:
+\begin{itemize}
+	\item $d$, the size of the internal hidden dimension.
+	\item $D$, the fraction of connections dropped in every dropout layer.
+	\item $l$, the learning rate.
+	\item blah blah 
 \end{itemize}
 
 
