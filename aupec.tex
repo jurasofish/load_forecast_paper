@@ -154,7 +154,7 @@ Present a few equations, then explain intuitively.
 \subsection{Feed-forward}
 The feed-forward network is a two layer network that is applied identically to each time step.
 Given an input $X$ of dimension $T \times d$, the output Y is populated by $Y_{i,*} = $ max$(0, X_{i,*}  W_1 + b_1)  W_2 + b_2$ with $Y$ having the same dimensions as $X$.
-$W_1$ is a matrix of dimension $d \times 4d$, $b_1$ is a vector of dimension $4d$, $W_2$ is a matrix of dimension $4d \times d$, $b_2$ is a vector of dimension $d$.
+$W_1$ is a matrix of dimension $d \times 4d$, $b_1$ is a vector of dimension $4d$, $W_2$ is a matrix of dimension $4d \times d$, and $b_2$ is a vector of dimension $d$.
 
 \subsection{Addition \& Normalization}
 Residual connections \cite{He2015} are applied around each sub-layer.
