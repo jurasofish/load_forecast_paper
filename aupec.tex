@@ -98,7 +98,7 @@ $X$ and $Y$ are aligned on any five minute interval, allowing the forecast to be
 \subsection{Similar Profile Selection}
 Load profiles are influenced by exogenous factors such as weather, day of the week, and holiday status \cite{Weron2006}.
 Holiday status indicates which holiday the period is in - Easter or Christmas for example.
-These different holidays are assigned different integer identifiers (with no holiday assigned identifier 0) to form a time series.
+These different holidays are assigned different integer identifiers (with normal days assigned identifier 0) to form a time series.
 The forecasting system was provided with historical load profiles with similar exogenous data to the profile being forecast.
 \par
 Similar profiles were identified by first finding candidate similar profiles an integer multiple of 1 year $\pm$30 days away from the profile being forecast and filtering the candidates down to profiles with exactly matching hour and minute.
