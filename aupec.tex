@@ -141,9 +141,29 @@ This is done by using a trainable lookup table to add the same value to the inpu
 Specifically, a matrix lookup table of embeddings $\boldsymbol{E}$ of dimension $T \times d$ is added to the embedded inputs such that $\boldsymbol{X}'_{i,*} = \boldsymbol{X}'_{i,*} + \boldsymbol{E}_{i,*}$.
 
 \subsection{Multi-Head Attention}
-Scaled dot-product attention used multiple times, concatenated, and put through feedforward.
-Figure \ref{fig:multihead}.
-Present a few equations, then explain intuitively.
+The primary innovation of the Transformer architecture is multi-head attention.
+Generic attention and dot-product attention will now be described as these are prerequisite to describing multi-head attention.
+
+Given a single query vector and a set of key and value pairs (with each key and each value being a vector), an attention function matches the query to the keys to produce a weight for each key which is used to create an output vector comprised of the weighted sum of the values, where each value's weight is the weight of its corresponding key. 
+Matching of the query to the keys is performed with an arbitrary fitness function.
+
+Scaled dot-product attention, shown in Figure \ref{fig:multihead} (left), is a specific implementation of an attention function. 
+It uses the dot product of the query and each key to generate the weights, which are then passed through a softmax function such that the sum of all weights is equal to 1.
+In practice, the query row vectors are combined into a single matrix, $\boldsymbol{Q}$, allowing computationally cheap matrix calculations to be used to evaluate the attention outputs in parallel.
+The keys and values are represented by row vectors in $\boldsymbol{K}$ and $\boldsymbol{V}$, respectively.
+The dot product of the keys and queries is scaled (hence the name) by multiplying it by $\frac{1}{\sqrt{d_k}}$, with $d_k$ being the key and query dimension, to prevent the dot product from becoming large when $d_k$ is large.
+A large dot product may cause the gradient of the softmax function to become small and cause issues with training of the model.
+The causal mask shown in Figure \ref{fig:multihead} is used exclusively in the decoder self-attention (where $\boldsymbol{Q}$, $\boldsymbol{K}$ and $\boldsymbol{V}$ are identical) to prevent the attention function from matching any query to a key that occurs after itself in time.
+This is achieved by leaving the lower triangular portion of the matrix untouched and setting the other values to be large negative numbers - indicating a very poor match.
+
+Multi-head attention, shown in Figure \ref{fig:multihead} (right), applies a separate dense layer to each of the values, queries, and keys and then splits them along the last axis into $h$ sets, or heads.
+As a result the key, query, and value dimension is reduced by a factor of $h$ to $\frac{d}{h}$.
+Scaled dot-product attention is then run independently on each set.
+The results are concatenated and put through a dense layer to produce the output of the attention function.
+The dense function is defined by dense($\boldsymbol{X}$) = max(0, $\boldsymbol{XW} + \boldsymbol{b}$) where $\boldsymbol{W}$ is a learned square matrix with the same dimension as the last dimension of $\boldsymbol{X}$ and $\boldsymbol{b}$ is a vector with the same dimension as $\boldsymbol{W}$.
+
+The theory behind multi-head attention is that the dense layer combined with the split allows the model to pick out information from different subspaces in the input and direct these to different attention heads.
+This supposedly improves performance over a single head.
 
 \begin{figure}[htbp]
 	\centerline{\includegraphics[width=.35\textwidth]{images/multihead_attn.pdf}}
