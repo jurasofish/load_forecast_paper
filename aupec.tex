@@ -7,6 +7,7 @@
 \usepackage{graphicx}
 \usepackage{textcomp}
 \usepackage{xcolor}
+\usepackage{pdfpages}
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \begin{document}
@@ -146,8 +147,8 @@ Figure \ref{fig:multihead}.
 Present a few equations, then explain intuitively.
 
 \begin{figure}[htbp]
-	\centerline{\includegraphics[width=.35\textwidth]{images/multihead_attention_vaswani_copied.png}}
-	\caption{Multiheaded attention. This has been copied from \cite{Vaswani2017} - todo reproduce.}
+	\centerline{\includegraphics[width=.35\textwidth]{images/multihead_attn.pdf}}
+	\caption{Multiheaded attention (right) splits the key, query, and value matrices and applies scaled dot product attention (left) on each in parallel before concatenating the result to return the data to its original dimension.}
 	\label{fig:multihead}
 \end{figure}
 
