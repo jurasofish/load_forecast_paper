@@ -87,7 +87,7 @@ This project and case study is supported by TasNetworks.
 Recurrent Neural Networks (RNN) have recently been popular for load forecasting \cite{Kong2018}.
 However, RNNs have been out-performed by the Transformer \cite{Vaswani2017} model in several domains including machine translation \cite{Vaswani2017} (where the architecture was first proposed and applied), medical time series forecasting and regression \cite{Song2017}, and image generation \cite{Parmar2018}.
 \par
-The proposed forecasting system uses a Transformer neural network model combined with similar profile selection.
+The proposed forecasting system uses a Transformer neural network model combined with similar load profile selection.
 \par
 Given a multivariate time series $X = (x_1, ..., x_T)$, with $x_t \in \mathbb{R}^N$ denoting a point in time comprised of N observations (a single point in an N-variate time series), the forecasting system produces a univariate time series forecast $Y = (y_1, ..., y_U)$ with $y_t \in \mathbb{R}^1$.
 \par
@@ -96,17 +96,23 @@ $X$ and $Y$ are aligned on any five minute interval, allowing the forecast to be
 
 
 \subsection{Similar Profile Selection}
+A load profile (profile for short) is a time series of electrical load over some period of time.
+In this paper, all profiles are measured in kVA and are univariate. 
+
 Load profiles are influenced by exogenous factors such as weather, day of the week, and holiday status \cite{Weron2006}.
-Holiday status indicates which holiday the period is in - Easter or Christmas for example.
+Holiday status indicates which holiday the profile occurs in - Easter or Christmas for example.
 These different holidays are assigned different integer identifiers (with normal days assigned identifier 0) to form a time series.
 The forecasting system was provided with historical load profiles with similar exogenous data to the profile being forecast.
 \par
 Similar profiles were identified by first finding candidate similar profiles an integer multiple of 1 year $\pm$30 days away from the profile being forecast and filtering the candidates down to profiles with exactly matching hour and minute.
 The hour and minute used were in local time to account for changes around daylight savings.
-Then the weighted euclidean distance between the profile being forecast and each candidate profile was calculated using the following features: max temp, min temp, day of week, holiday type, and previous day maximum load. \textbf{(reconcile with code).}
+
+Then the weighted Euclidean distance between the profile being forecast and each candidate profile was calculated using the following features: maximum future temperature, minimum future temperature, day of week at the time of the first point in the forecast, holiday type at the time of the first point in the forecast, and maximum past load.
+How far into the future/past the model acquires these values from is dictated by the model parameters.
+Typically, a value of 24 hours is chosen for looking into the past, and looking into the future is limited to the forecast horizon.
 The candidate profiles with the lowest distance were selected to be used as input, and their corresponding historical weather data was also supplied as an input.
 \par
-When training and testing, the similar days were selected from both the past and the future, as the training data for the system is only five years.
+When training and testing the model the similar days were selected from both the past and the future, as the train and test datasets were only five years each.
 \subsection{Transformer}
 The transformer neural network architecture, shown in figure \ref{fig:transformer}, was introduced by \cite{Vaswani2017} in 2017 and at the time was the state of the art in neural machine translation.
 This architecture follows the standard sequence-to-sequence/encoder-decoder architecture: the encoder transforms an input $X = (x_1, ..., x_T)$ into a latent representation $Z = (z_1, ..., z_v)$, and the decoder transforms $Z$ into an output sequence $Y = (y_1, ..., y_U)$.
