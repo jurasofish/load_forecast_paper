@@ -126,7 +126,6 @@ The input to the decoder is the output of the decoder, but shifted right by one.
 This requires an iterative approach to be used to predict all points in the time series.
 The self-attention in the decoder is masked so that when producing an output at time $t$ it unable to see data past time $t$, ensuring the decoder is autoregressive.
 
-It was adapted by \cite{Song2017} to perform time series forecasting in a medical context. \textbf{(Maybe ignore this?)}
 The individual sections of the transformer are discussed in the following sections.
 
 \begin{figure}[htbp]
