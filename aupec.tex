@@ -126,11 +126,13 @@ The input to the decoder is the output of the decoder, but shifted right by one.
 This requires an iterative approach to be used to predict all points in the time series.
 The self-attention in the decoder is masked so that when producing an output at time $t$ it unable to see data past time $t$, ensuring the decoder is autoregressive.
 
+The final output of the decoder is passed through a dense layer as described in section \ref{multihead_attention}.
+
 The individual sections of the transformer are discussed in the following sections.
 
 \begin{figure}[htbp]
 	\centerline{\includegraphics[width=.35\textwidth]{images/transformer_vaswani_copied.png}}
-	\caption{Transformer architecture. This has been copied from \cite{Vaswani2017} - todo reproduce.}
+	\caption{Transformer architecture. This has been copied from \cite{Vaswani2017} - todo reproduce. Final softmax is not in use}
 	\label{fig:transformer}
 \end{figure}
 
@@ -145,7 +147,7 @@ The model has no way of telling the position or order of each element in the inp
 This is done by using a trainable lookup table to add the same value to the inputs at both test and train time depending on their position in time in the input.
 Specifically, a matrix lookup table of embeddings $\boldsymbol{E}$ of dimension $T \times d$ is added to the embedded inputs such that $\boldsymbol{X}'_{i,*} = \boldsymbol{X}'_{i,*} + \boldsymbol{E}_{i,*}$.
 
-\subsection{Multi-Head Attention}
+\subsection{Multi-Head Attention} \label{multihead_attention}
 The primary innovation of the Transformer architecture is multi-head attention.
 Generic attention and dot-product attention will now be described as these are prerequisite to describing multi-head attention.
 
