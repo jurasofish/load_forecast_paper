@@ -188,15 +188,21 @@ Residual connections \cite{He2015} are applied around each sub-layer.
 That is, the output of each sub-layer is $x + $subLayer$(x)$ where subLayer$(x)$ is the original output of the sub-layer.
 The outputs are then normalized by applying layer normalization \cite{Ba2016}.
 
-\subsection{Dropout, regularization and training}
+\subsection{Dropout and Training}
 Dropout is applied in the following positions:
 \begin{itemize}
-	\item At the output of the positional encoding. 
-	\item At the output of each multi-head attention sub-layer.
+	\item At the output of the positional encoding of both the encoder and decoder.
+	\item Immediately after the softmax operation in the scaled dot-product attention.
 \end{itemize}
-No regularization is applied to the model. 
-This is perhaps a shortcoming of the model, as L2 normalization may improve generalisation performance.
 The model is trained using the Adam optimizer \cite{Kingma2014}.
+The loss function is a modified sum squared error.
+Given a vector $\boldsymbol{y}$ of predictions from the model and a vector $\boldsymbol{y'}$ of expected predictions the loss function $l$ is given by 
+\begin{equation}
+l = \sum_{t=0}^{U}((\boldsymbol{y}_t^2 - \boldsymbol{y'}_t^2) \times |\boldsymbol{y'}_t|^b)
+\end{equation}
+Where $b$ is a model hyperparameter.
+For $b>0$ this function accentuates loss when the actual value is large - this is useful for a load forecast as times of maximum demand are likely important for planning purposes.
+When $b=0$ this is simply normal sum squared error, and for $b<0$ this will accentuate loss when the actual value is small.
 
 \subsection{Hyper-parameters}
 The following are the model hyperparameters:
