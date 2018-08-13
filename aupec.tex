@@ -135,13 +135,10 @@ The individual sections of the transformer are discussed in the following sectio
 \end{figure}
 
 \subsection{Input Embedding}
-The input $\boldsymbol{X} \in \mathbb{R}^{T \times N}$, where the rows represent $T$ points in time and the columns represent $N$ time series, is embedded by applying a one-dimensional convolution to each row to produce an embedded $\boldsymbol{X}' \in \mathbb{R}^{T \times d}$, with $d$ being the hidden dimension of of the model.
+The input $\boldsymbol{X} \in \mathbb{R}^{T \times N}$, where the rows represent $T$ points in time and the columns represent $N$ time series, is embedded by applying a dense layer to produce an embedded $\boldsymbol{Y} \in \mathbb{R}^{T \times d}$, with $d$ being the hidden dimension of of the model.
 This is intended to allow the neural network to learn the relationships and dependencies between the different input time series.
-More specifically, the embedded representation is given by Equation \ref{conv_embed}, with a learned kernel $\boldsymbol{K} \in \mathbb{R}^{N \times d}$ and a learned bias vector $\boldsymbol{b} \in \mathbb{R}^{d}$.
+The embedded representation is given by Equation \ref{dense_layer}, with learned weights $\boldsymbol{W} \in \mathbb{R}^{N \times d}$ and a learned bias vector $\boldsymbol{b} \in \mathbb{R}^{d}$.
 
-\begin{equation} \label{conv_embed}
-\boldsymbol{Y}_{i, j} = \boldsymbol{X}_{i,*} \cdot \boldsymbol{K}_{*, j} + \boldsymbol{b}
-\end{equation}
 
 \subsection{Positional Encoding}
 The model has no way of telling the position or order of each element in the input, so this information is injected in the positional encoding step.
