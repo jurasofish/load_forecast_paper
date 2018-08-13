@@ -203,7 +203,7 @@ The layer is implemented per Equation \ref{dense_layer} where $\boldsymbol{W} \i
 
 \subsection{Addition \& Normalization}
 Residual connections \cite{He2015} are applied around each sub-layer.
-That is, the output of each sub-layer is $x + $subLayer$(x)$ where subLayer$(x)$ is the original output of the sub-layer.
+That is, the output of each sub-layer is given by $\boldsymbol{Y} = \boldsymbol{X} + \text{subLayer}(\boldsymbol{X})$ where subLayer$(\boldsymbol{X})$ is the original output of the sub-layer.
 The outputs are then normalized by applying layer normalization \cite{Ba2016}, as per Equation \ref{layernorm} where $\mu_{\boldsymbol{x}}$ and $\sigma_{\boldsymbol{x}}$ are the mean and variance of $\boldsymbol{x}$ respectively.
 
 \begin{equation} \label{layernorm}
