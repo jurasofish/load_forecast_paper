@@ -166,8 +166,10 @@ Scaled dot-product attention, shown in Figure \ref{fig:multihead} (left), is a s
 It uses the dot product of the query and each key to generate the weights, which are then passed through a softmax function such that the sum of all weights is equal to 1.
 In practice, the query row vectors are combined into a single matrix, $\boldsymbol{Q}$, allowing computationally cheap matrix calculations to be used to evaluate the attention outputs in parallel.
 The keys and values are represented by row vectors in $\boldsymbol{K}$ and $\boldsymbol{V}$, respectively.
+
 The dot product of the keys and queries is scaled (hence the name) by multiplying it by $\frac{1}{\sqrt{d_k}}$, with $d_k$ being the key and query dimension, to prevent the dot product from becoming large when $d_k$ is large.
 A large dot product may cause the gradient of the softmax function to become small and cause issues with training of the model.
+
 The causal mask shown in Figure \ref{fig:multihead} is used exclusively in the decoder self-attention (where $\boldsymbol{Q}$, $\boldsymbol{K}$ and $\boldsymbol{V}$ are identical) to prevent the attention function from matching any query to a key that occurs after itself in time.
 This is achieved by leaving the lower triangular portion of the matrix untouched and setting the other values to be large negative numbers - indicating a very poor match.
 
