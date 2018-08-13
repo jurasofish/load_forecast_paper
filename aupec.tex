@@ -220,11 +220,11 @@ The model is trained using the Adam optimizer \cite{Kingma2014}.
 The loss function is a modified sum squared error.
 Given a vector $\boldsymbol{y}$ of predictions from the model and a vector $\boldsymbol{y'}$ of expected predictions the loss function $l$ is given by 
 \begin{equation}
-l = \sum_{t=0}^{U}((\boldsymbol{y}_t^2 - \boldsymbol{y'}_t^2) \times |\boldsymbol{y'}_t|^b)
+l = \sum_{t=0}^{U}((\boldsymbol{y}_t^2 - \boldsymbol{y'}_t^2) \times |\boldsymbol{y'}_t|^c)
 \end{equation}
-Where $b$ is a model hyperparameter.
-For $b>0$ this function accentuates loss when the actual value is large - this is useful for a load forecast as times of maximum demand are likely important for planning purposes.
-When $b=0$ this is simply normal sum squared error, and for $b<0$ this will accentuate loss when the actual value is small.
+Where $c$ is a model hyperparameter.
+For $c>0$ this function accentuates loss when the actual value is large - this is useful for a load forecast as times of maximum demand are likely important for planning purposes.
+When $c=0$ this is simply normal sum squared error, and for $c<0$ this will accentuate loss when the actual value is small.
 
 \subsection{Hyper-parameters}
 The following are the model hyperparameters:
