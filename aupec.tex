@@ -177,7 +177,11 @@ Multi-head attention, shown in Figure \ref{fig:multihead} (right), applies a den
 As a result the key, query, and value dimension is reduced by a factor of $h$ to $\frac{d}{h}$.
 Scaled dot-product attention is then run independently on each set.
 The results are concatenated and put through a dense layer to produce the output of the attention function.
-The dense function is defined by dense($\boldsymbol{X}$) = max(0, $\boldsymbol{XW} + \boldsymbol{b}$) where $\boldsymbol{W} \in \mathbb{R}^{d \times d}$ is a learned square matrix and $\boldsymbol{b} \in \mathbb{R}^{d}$ is a learned bias vector.
+The dense layer function is defined by Equation \ref{dense_layer} where $\boldsymbol{W} \in \mathbb{R}^{d \times d}$ is a learned weight matrix and $\boldsymbol{b} \in \mathbb{R}^{d}$ is a learned bias vector.
+
+\begin{equation} \label{dense_layer}
+\text{dense}(\boldsymbol{X}) = \text{max}(0, \boldsymbol{XW} + \boldsymbol{b})
+\end{equation}
 
 The theory behind multi-head attention is that the dense layer combined with the split allows the model to pick out information from different subspaces in the input and direct these to different attention heads.
 This supposedly improves performance over a single head.
