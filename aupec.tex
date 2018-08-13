@@ -115,7 +115,7 @@ The candidate profiles with the lowest distance were selected to be used as inpu
 When training and testing the model the similar days were selected from both the past and the future, as the train and test datasets were only five years each.
 \subsection{Transformer}
 The transformer neural network architecture, shown in figure \ref{fig:transformer}, was introduced by \cite{Vaswani2017} in 2017 and at the time was the state of the art in neural machine translation.
-This architecture follows the standard sequence-to-sequence/encoder-decoder architecture: the encoder transforms an input $X = (\boldsymbol{x}_1, ..., \boldsymbol{x}_T)$ into a latent representation $Z = (\boldsymbol{z}_1, ..., \boldsymbol{z}_v)$, and the decoder transforms $Z$ into an output sequence $Y = (\boldsymbol{y}_1, ..., \boldsymbol{y}_U)$.
+This architecture follows the standard sequence-to-sequence/encoder-decoder architecture: the encoder transforms an input $X = (\boldsymbol{x}_1, ..., \boldsymbol{x}_T)$ into a latent representation $Z = (\boldsymbol{z}_1, ..., \boldsymbol{z}_V)$, and the decoder transforms $Z$ into an output sequence $Y = (\boldsymbol{y}_1, ..., \boldsymbol{y}_U)$.
 
 The encoder is constructed of a stack of $L$ identical layers, each containing two sub-layers.
 The first is multi-head self-attention and the second is a feedfoward network, both discussed below.
