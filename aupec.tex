@@ -118,7 +118,7 @@ The transformer neural network architecture, shown in figure \ref{fig:transforme
 This architecture follows the standard sequence-to-sequence/encoder-decoder architecture: the encoder transforms an input $X = (\boldsymbol{x}_1, ..., \boldsymbol{x}_P)$ into a latent representation $Z = (\boldsymbol{z}_1, ..., \boldsymbol{z}_Q)$, and the decoder transforms $Z$ into an output sequence $Y = (\boldsymbol{y}_1, ..., \boldsymbol{y}_R)$.
 
 The encoder is constructed of a stack of $L$ identical layers, each containing two sub-layers.
-The first is multi-head self-attention and the second is a feedfoward network, both discussed below.
+The first is multi-head self-attention and the second is a position-wise feed-foward network, both discussed below.
 Both sub-layers have a residual connection around them and are fed into a normalization layer.
 
 The decoder is similar to the encoder except for a third layer which implements multi-head attention on the outputs of the encoder - the attention queries come from the previous decoder layer, while the keys and values come from the encoder output.
