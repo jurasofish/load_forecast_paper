@@ -139,6 +139,9 @@ The input $\boldsymbol{X} \in \mathbb{R}^{T \times N}$, where the rows represent
 This is intended to allow the neural network to learn the relationships and dependencies between the different input time series.
 The embedded representation is given by Equation \ref{dense_layer}, with learned weights $\boldsymbol{W} \in \mathbb{R}^{N \times d}$ and a learned bias vector $\boldsymbol{b} \in \mathbb{R}^{d}$.
 
+\begin{equation} \label{dense_layer}
+\boldsymbol{Y} = \text{max}(0, \boldsymbol{XW} + \boldsymbol{b})
+\end{equation}
 
 \subsection{Positional Encoding}
 The model has no way of telling the position or order of each element in the input, so this information is injected in the positional encoding step.
@@ -172,10 +175,6 @@ As a result the key, query, and value dimension is reduced by a factor of $h$ to
 Scaled dot-product attention is then run independently on each set.
 The results are concatenated and put through a dense layer to produce the output of the attention function.
 The dense layer function, used both at the input and output of the multi-head attention, is defined by Equation \ref{dense_layer} where $\boldsymbol{W} \in \mathbb{R}^{d \times d}$ is a learned weight matrix and $\boldsymbol{b} \in \mathbb{R}^{d}$ is a learned bias vector.
-
-\begin{equation} \label{dense_layer}
-\boldsymbol{Y} = \text{max}(0, \boldsymbol{XW} + \boldsymbol{b})
-\end{equation}
 
 The theory behind multi-head attention is that the dense layer combined with the split allows the model to pick out information from different subspaces in the input and direct these to different attention heads.
 This supposedly improves performance over a single head.
