@@ -145,7 +145,7 @@ More specifically, given a learned kernel $\boldsymbol{K} \in \mathbb{R}^{N \tim
 \subsection{Positional Encoding}
 The model has no way of telling the position or order of each element in the input, so this information is injected in the positional encoding step.
 This is done by using a trainable lookup table to add the same value to the inputs at both test and train time depending on their position in time in the input.
-Specifically, a matrix lookup table of embeddings $\boldsymbol{E}$ of dimension $T \times d$ is added to the embedded inputs such that $\boldsymbol{X}'_{i,*} = \boldsymbol{X}'_{i,*} + \boldsymbol{E}_{i,*}$.
+Specifically, a matrix lookup table of embeddings $\boldsymbol{E} \in \mathbb{R}^{T \times d}$ is added to the embedded inputs such that $\boldsymbol{X}'_{i,*} = \boldsymbol{X}'_{i,*} + \boldsymbol{E}_{i,*}$.
 
 \subsection{Multi-Head Attention} \label{multihead_attention}
 The primary innovation of the Transformer architecture is multi-head attention.
@@ -167,7 +167,7 @@ Multi-head attention, shown in Figure \ref{fig:multihead} (right), applies a den
 As a result the key, query, and value dimension is reduced by a factor of $h$ to $\frac{d}{h}$.
 Scaled dot-product attention is then run independently on each set.
 The results are concatenated and put through a dense layer to produce the output of the attention function.
-The dense function is defined by dense($\boldsymbol{X}$) = max(0, $\boldsymbol{XW} + \boldsymbol{b}$) where $\boldsymbol{W}$ is a learned square matrix with the same dimension as the last dimension of $\boldsymbol{X}$ and $\boldsymbol{b}$ is a vector with the same dimension as $\boldsymbol{W}$.
+The dense function is defined by dense($\boldsymbol{X}$) = max(0, $\boldsymbol{XW} + \boldsymbol{b}$) where $\boldsymbol{W} \in \mathbb{R}^{d \times d}$ is a learned square matrix and $\boldsymbol{b} \in \mathbb{R}^{d}$ is a learned bias vector.
 
 The theory behind multi-head attention is that the dense layer combined with the split allows the model to pick out information from different subspaces in the input and direct these to different attention heads.
 This supposedly improves performance over a single head.
