@@ -138,10 +138,9 @@ The individual sections of the transformer are discussed in the following sectio
 \end{figure}
 
 \subsection{Input Embedding}
-The input $\boldsymbol{X}$ is a $T \times N$ matrix, where the rows represent $T$ points in time, and the columns represent $N$ time series.
-This is embedded by applying a one-dimensional convolution to each row to produce an embedded $\boldsymbol{X}'$ of dimension $T \times d$.
+The input $\boldsymbol{X} \in \mathbb{R}^{T \times N}$, where the rows represent $T$ points in time and the columns represent $N$ time series, is embedded by applying a one-dimensional convolution to each row to produce an embedded $\boldsymbol{X}' \in \mathbb{R}^{T \times d}$.
 This is intended to allow the neural network to learn the relationships and dependencies between the different input time series.
-More specifically, given a learned kernel $\boldsymbol{K}$ of dimension $N \times d$ and a learned bias vector $\boldsymbol{b}$ of dimension $d$, the embedded representation is given by $\boldsymbol{X}'_{i, j} = \boldsymbol{X}_{i,*} \cdot \boldsymbol{K}_{*, j} + \boldsymbol{b}$.
+More specifically, given a learned kernel $\boldsymbol{K} \in \mathbb{R}^{N \times d}$ and a learned bias vector $\boldsymbol{b} \in \mathbb{R}^{d}$, the embedded representation is given by $\boldsymbol{X}'_{i, j} = \boldsymbol{X}_{i,*} \cdot \boldsymbol{K}_{*, j} + \boldsymbol{b}$.
 
 \subsection{Positional Encoding}
 The model has no way of telling the position or order of each element in the input, so this information is injected in the positional encoding step.
