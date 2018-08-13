@@ -180,8 +180,11 @@ This supposedly improves performance over a single head.
 
 \subsection{Feed-forward}
 The feed-forward network is a two layer network that is applied identically to each time step.
-Given an input $\boldsymbol{X}$ of dimension $T \times d$, the output $\boldsymbol{Y}$ is populated by $\boldsymbol{Y}_{i,*} = $ max$(0, \boldsymbol{X}_{i,*}  \boldsymbol{W}_1 + \boldsymbol{b}_1)  \boldsymbol{W}_2 + \boldsymbol{b}_2$ with $\boldsymbol{Y}$ having the same dimensions as $\boldsymbol{X}$.
-$\boldsymbol{W}_1$ is a matrix of dimension $d \times 4d$, $\boldsymbol{b}_1$ is a vector of dimension $4d$, $\boldsymbol{W}_2$ is a matrix of dimension $4d \times d$, and $\boldsymbol{b}_2$ is a vector of dimension $d$.
+Given an input $\boldsymbol{X} \in \mathbb{R}^{T \times d}$, the output $\boldsymbol{Y} \in \mathbb{R}^{T \times d}$ is populated by Equation \ref{feedforward} where $\boldsymbol{W}_1 \in \mathbb{R}^{d \times 4d}$, $\boldsymbol{b}_1 \in \mathbb{R}^{4d}$, $\boldsymbol{W}_2 \in \mathbb{R}^{4d \times d}$, and $\boldsymbol{b}_2 \in \mathbb{R}^{d}$ are learned weights and biases.
+
+\begin{equation} \label{feedforward}
+\boldsymbol{Y}_{i,*} = \text{max}(0, \boldsymbol{X}_{i,*}  \boldsymbol{W}_1 + \boldsymbol{b}_1)  \boldsymbol{W}_2 + \boldsymbol{b}_2
+\end{equation}
 
 \subsection{Addition \& Normalization}
 Residual connections \cite{He2015} are applied around each sub-layer.
