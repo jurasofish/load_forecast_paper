@@ -126,9 +126,6 @@ The input to the decoder is the previous output of the decoder, but shifted righ
 This requires an iterative approach to be used to predict all points in the time series.
 The self-attention in the decoder is masked so that when evaluating a query at time $t$ it is unable to assign large weights to keys/values occurring after $t$ in time - ensuring the decoder is autoregressive.
 
-The final output of the decoder is passed through a dense layer to project the hidden dimension to the desired output dimension of 1.
-\textbf{TODO elaborate a little on this dense layer - an equation}.
-
 The individual sections of the transformer are discussed in the following sections.
 
 \begin{figure}[htbp]
@@ -199,6 +196,12 @@ Given an input $\boldsymbol{X} \in \mathbb{R}^{T \times d}$, the output $\boldsy
 \begin{equation} \label{feedforward}
 \boldsymbol{Y}_{i,*} = \text{max}(0, \boldsymbol{X}_{i,*}  \boldsymbol{W}_1 + \boldsymbol{b}_1)  \boldsymbol{W}_2 + \boldsymbol{b}_2
 \end{equation}
+
+\subsection{Decoder Dense Output}
+The output of the decoder is passed through a dense layer to project the hidden dimension to the desired dimension of 1.
+The layer is implemented per Equation \ref{dense_layer} where $\boldsymbol{W} \in \mathbb{R}^{d \times 1}$ is a learned weight matrix and $\boldsymbol{b} \in \mathbb{R}^{1}$ is a learned bias vector.
+
+
 
 \subsection{Addition \& Normalization}
 Residual connections \cite{He2015} are applied around each sub-layer.
