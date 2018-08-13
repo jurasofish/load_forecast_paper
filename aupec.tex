@@ -170,11 +170,11 @@ A large dot product may cause the gradient of the softmax function to become sma
 The causal mask shown in Figure \ref{fig:multihead} is used exclusively in the decoder self-attention (where $\boldsymbol{Q}$, $\boldsymbol{K}$ and $\boldsymbol{V}$ are identical) to prevent the attention function from matching any query to a key that occurs after itself in time.
 This is achieved by leaving the lower triangular portion of the matrix untouched and setting the other values to be large negative numbers - indicating a very poor match.
 
-Multi-head attention, shown in Figure \ref{fig:multihead} (right), applies a dense layer to each of the values, queries, and keys and then splits them along the last axis into $h$ sets, or heads.
+Multi-head attention, shown in Figure \ref{fig:multihead} (right), applies a separate dense layer to each of the values, queries, and keys and then splits them along the last axis into $h$ sets, or heads.
 As a result the key, query, and value dimension is reduced by a factor of $h$ to $\frac{d}{h}$.
 Scaled dot-product attention is then run independently on each set.
 The results are concatenated and put through a dense layer to produce the output of the attention function.
-The dense layer function is defined by Equation \ref{dense_layer} where $\boldsymbol{W} \in \mathbb{R}^{d \times d}$ is a learned weight matrix and $\boldsymbol{b} \in \mathbb{R}^{d}$ is a learned bias vector.
+The dense layer function, used both at the input and output of the multi-head attention, is defined by Equation \ref{dense_layer} where $\boldsymbol{W} \in \mathbb{R}^{d \times d}$ is a learned weight matrix and $\boldsymbol{b} \in \mathbb{R}^{d}$ is a learned bias vector.
 
 \begin{equation} \label{dense_layer}
 \boldsymbol{Y} = \text{max}(0, \boldsymbol{XW} + \boldsymbol{b})
