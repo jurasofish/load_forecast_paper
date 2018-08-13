@@ -226,16 +226,6 @@ Where $c$ is a model hyperparameter.
 For $c>0$ this function accentuates loss when the actual value is large - this is useful for a load forecast as times of maximum demand are likely important for planning purposes.
 When $c=0$ this is simply normal sum squared error, and for $c<0$ this will accentuate loss when the actual value is small.
 
-\subsection{Hyper-parameters}
-The following are the model hyperparameters:
-\begin{itemize}
-	\item $d$, the size of the internal hidden dimension.
-	\item $D$, the fraction of connections dropped in every dropout layer.
-	\item $l$, the learning rate.
-	\item blah blah 
-\end{itemize}
-\textbf{I can probably remove this section and make hyperparameters clearer throughout the preceding text.}
-
 
 \section{Case Study}
 The forecasting system was applied to Bruny Island.
