@@ -144,11 +144,11 @@ The embedded representation is given by Equation \ref{dense_layer}, with learned
 \end{equation}
 
 \subsection{Positional Encoding}
-The model has no way of telling the position or order of each element in the input, so this information is injected in the positional encoding step.
-This is done by using a trainable lookup table to add the same value to the inputs at both test and train time depending on their position in time in the input.
+The model has no way of telling the position or order of each element in the input, so this information is injected in the positional encoding layer.
+This is done by using a learned lookup table to add the same value to the inputs at both test and train time depending on their position in time in the input.
 Specifically, a matrix lookup table of embeddings $\boldsymbol{E} \in \mathbb{R}^{T \times d}$ is added to the embedded inputs as per Equation \ref{positional_encoding}.
 \begin{equation}\label{positional_encoding}
-\boldsymbol{Y}_{i,*} = \boldsymbol{X}_{i,*} + \boldsymbol{E}_{i,*}
+\boldsymbol{Y} = \boldsymbol{X} + \boldsymbol{E}
 \end{equation}
 
 \subsection{Multi-Head Attention} \label{multihead_attention}
