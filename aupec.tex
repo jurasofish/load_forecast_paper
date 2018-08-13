@@ -140,7 +140,7 @@ This is intended to allow the neural network to learn the relationships and depe
 More specifically, the embedded representation is given by Equation \ref{conv_embed}, with a learned kernel $\boldsymbol{K} \in \mathbb{R}^{N \times d}$ and a learned bias vector $\boldsymbol{b} \in \mathbb{R}^{d}$.
 
 \begin{equation} \label{conv_embed}
-\boldsymbol{X}'_{i, j} = \boldsymbol{X}_{i,*} \cdot \boldsymbol{K}_{*, j} + \boldsymbol{b}
+\boldsymbol{Y}_{i, j} = \boldsymbol{X}_{i,*} \cdot \boldsymbol{K}_{*, j} + \boldsymbol{b}
 \end{equation}
 
 \subsection{Positional Encoding}
@@ -148,7 +148,7 @@ The model has no way of telling the position or order of each element in the inp
 This is done by using a trainable lookup table to add the same value to the inputs at both test and train time depending on their position in time in the input.
 Specifically, a matrix lookup table of embeddings $\boldsymbol{E} \in \mathbb{R}^{T \times d}$ is added to the embedded inputs as per Equation \ref{positional_encoding}.
 \begin{equation}\label{positional_encoding}
-\boldsymbol{X}'_{i,*} = \boldsymbol{X}'_{i,*} + \boldsymbol{E}_{i,*}
+\boldsymbol{Y}_{i,*} = \boldsymbol{X}_{i,*} + \boldsymbol{E}_{i,*}
 \end{equation}
 
 \subsection{Multi-Head Attention} \label{multihead_attention}
@@ -177,7 +177,7 @@ The results are concatenated and put through a dense layer to produce the output
 The dense layer function is defined by Equation \ref{dense_layer} where $\boldsymbol{W} \in \mathbb{R}^{d \times d}$ is a learned weight matrix and $\boldsymbol{b} \in \mathbb{R}^{d}$ is a learned bias vector.
 
 \begin{equation} \label{dense_layer}
-\text{dense}(\boldsymbol{X}) = \text{max}(0, \boldsymbol{XW} + \boldsymbol{b})
+\boldsymbol{Y} = \text{max}(0, \boldsymbol{XW} + \boldsymbol{b})
 \end{equation}
 
 The theory behind multi-head attention is that the dense layer combined with the split allows the model to pick out information from different subspaces in the input and direct these to different attention heads.
