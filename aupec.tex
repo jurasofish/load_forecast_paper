@@ -122,7 +122,7 @@ The first is multi-head self-attention and the second is a feedfoward network, b
 Both sub-layers have a residual connection around them and are fed into a normalization layer.
 
 The decoder is similar to the encoder except for a third layer which implements multi-head attention on the outputs of the encoder - the attention queries come from the previous decoder layer, while the keys and values come from the encoder output.
-The input to the decoder is the output of the decoder, but shifted right by one.
+The input to the decoder is the previous output of the decoder, but shifted right by one and with every value not yet predicted set to zero.
 This requires an iterative approach to be used to predict all points in the time series.
 The self-attention in the decoder is masked so that when producing an output at time $t$ it unable to see data past time $t$, ensuring the decoder is autoregressive.
 
