@@ -226,6 +226,12 @@ Where $c$ is a model hyperparameter.
 For $c>0$ this function accentuates loss when the actual value is large - this is useful for a load forecast as times of maximum demand are likely important for planning purposes.
 When $c=0$ this is simply normal sum squared error, and for $c<0$ this will accentuate loss when the actual value is small.
 
+When testing or being used for inference, the decoder outputs are generated sequentially one at a time.
+Values that have not yet been generated are set to zero.
+These zero values do not affect the output of the decoder, as the decoder self-attention is masked so that it does not make use of them.
+After each output value is generated, it is populated in the decoder input.
+When training, the decoder input is set to the known expected value and the model is executed a single time.
+
 
 \section{Case Study}
 The forecasting system was applied to Bruny Island.
