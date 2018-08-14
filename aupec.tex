@@ -67,19 +67,17 @@ This changing network presents an opportunity to maximize the use of existing as
 For example, batteries could be used to peak-shift, reducing maximum feeder load.
 However, to achieve this requires sophisticated methods to optimize the power flow to and from the distributed resources.
 \par
-One method to achieve this is presented in \cite{Scott2014} and has been implemented on Bruny Island, Tasmania.
-The island is a popular holiday destination and during peak periods, such as Easter morning/afternoon peaks, the submarine feeder supplying the island becomes overloaded and has to be supplemented by a diesel generator located on the island.
-The aim of the project was to peak shift the load away from the morning/afternoon and avoid the use of the generator.
+One method to achieve this is presented in \cite{Scott2014} and has been implemented on Bruny Island, Tasmania as part of the CONSORT project.
+The island is a popular holiday destination and during peak periods - such as Easter morning and afternoon peaks - the submarine feeder supplying the island becomes overloaded and has to be supplemented by a diesel generator located on the island.
+The aim of the CONSORT project was to peak shift the load away from the morning and afternoon peaks to prevent the use of the generator.
 
-The method relies on having an accurate forecast of day-ahead load at the feeder level.
+CONSORT relies on having an accurate forecast of day-ahead load at the feeder level.
 Load forecasting methods commonly employed in industry are neither intended to forecast with high accuracy over a time period this short nor at such a low level in the distribution network \cite{CIGRE2016}.
 As a result, the optimization of the distributed resources was not as effective as it could be.
 \par
 To solve this, a neural network-based load forecasting system is proposed.
-This system will be applied to Bruny Island, in southern Tasmania, as a case study.
-Bruny Island currently has a high penetration of PV and battery technology which is optimized by the Network-aware Coordination (NAC) algorithm \cite{Evan2016}.
-Additionally, it is constrained by its feeder during peak holiday periods, necessitating an on-island diesel generator. The load forecasting system will need to be able to perform equally well on holidays, where the load is generally large, and on normal days. 
-This makes it a perfect case study to highlight the potential benefits that distributed resources can have in the network.
+This system was applied in the CONSORT project as a case study.
+The load forecasting system was shown to perform equally well on holidays, where the load is generally large, and on normal days. 
 This project and case study is supported by TasNetworks.
 
 
