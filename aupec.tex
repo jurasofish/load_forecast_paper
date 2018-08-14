@@ -283,18 +283,73 @@ The proposed architecture was implemented for this purpose.
 \end{figure}
 
 \subsection{Data and  Model Configuration}
-The following data was available for Bruny Island
+The following data was available from 2009-2018:
 \begin{itemize}
-	\item One-minute resolution apparent power from reclosers R1 through R4 (Figure \ref{fig:bruny_network}) from 2009-2018.
-	\item One-minute resolution temperature at Lenah Valley, Tasmania (50km from the island) from 2009-2018. 
-	\item One-minute resolution apparent power consumption at St Helens, Tasmania.
+	\item Apparent power at reclosers R1 through R4 (Figure \ref{fig:bruny_network}).
+	\item Temperature at Lenah Valley, Tasmania (50km from the island). 
+	\item Apparent power consumption at St Helens, Tasmania.
 \end{itemize}
 
-The data has many missing values.
+This data was averaged to 30 minute resolution and split into a train set containing data from October 2009 through September 2014, and a test set containing data from October 2014 through April 2018.
 
-The forecasting system was configured with the parameters in table ... .
-[Horizon: 24 hours, period: 30 minutes, 5 similar days, ]
+The network was supplied with data from the previous and future 24 hours, for a total input sequence length of 96 representing 48 hours at 30 minute resolution.
+The output sequence length was 48 (24 hours).
 
+The input time series contained the following data:
+\begin{itemize}
+	\item Apparent power from recloser R1, with future values set to zero.
+	\item Temperature.
+	\item Day of the week as an integer from 0 to 6 (local time).
+	\item Minutes since midnight (local time).
+	\item Boolean 1 or 0 indicating whether it is a holiday.
+	\item Holiday ID.
+\end{itemize}
+
+The source of the temperature data was Lenah Valley for testing and training, whereas for inference it was from the Bureau of Meteorology.
+
+Additionally, five similar days were identified using data from R1.
+The data corresponding to the similar days from each of the following time series was provided as input:
+\begin{itemize}
+	\item Reclosers R1, R2, R3, and R4 (as separate time series).
+	\item St Helens recloser.
+	\item Lenah Valley temperature.
+\end{itemize}
+
+In total, 36 time series were provided as input to the model.
+The data from St Helens was included because it was observed to display similar patterns to Bruny Island around holiday periods. It serves as a proof of concept for the ability to supply arbitrary data to the model.
+
+If any value in an input or expected output sequence was bad or missing then the sequence was not used.
+As a result, approximately 4\% of the data was discarded.
+All data was normalized between zero and one prior to being supplied to the model.
+
+The forecasting system was configured with the parameters in table \ref{table:parameters}, with the upper section giving transformer model parameters and the lower section giving weights used for similar load profile selection.
+
+\begin{table}[htbp]
+	\caption{Case study model parameters}
+	\begin{center}
+		\begin{tabular}{clc}
+%			3.\hline
+			\textbf{Parameter}&\textbf{Description}&\textbf{Value} \\
+			\hline
+			$L$ & Number of encoder and decoder layers & 4 \\
+			$d$ & Hidden dimension & 32 \\
+			$h$ & Number of attention heads & 4 \\
+			$D$ & Dropout fraction & 0.2 \\
+			$c$ & Loss function modifier & 3 \\
+			-   & Training batch size & 16 \\
+			\hline
+			-   & Maximum future temperature weight & 10 \\
+			-   & Minimum future temperature weight & 20 \\
+			-   & Maximum past load weight & 30 \\
+			-   & Holiday type weight & 1e9 \\
+			-   & Day of week weight & 1e6 \\
+			-   & Day of month weight & 1e6 \\
+			-   & Month of year weight & 1e6 \\
+			
+		\end{tabular}
+		\label{table:parameters}
+	\end{center}
+\end{table}
 
 \subsection{Results}
 Results of case study.
