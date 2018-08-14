@@ -117,7 +117,16 @@ The forecasting system was provided with historical load profiles with similar e
 Similar profiles were identified by first finding candidate similar profiles an integer multiple of 1 year $\pm$30 days away from the profile being forecast and filtering the candidates down to profiles with exactly matching hour and minute.
 The hour and minute used were in local time to account for changes around daylight savings.
 
-Then the weighted Euclidean distance between the profile being forecast and each candidate profile was calculated using the following features: maximum future temperature, minimum future temperature, day of week at the time of the first point in the forecast, holiday type at the time of the first point in the forecast, and maximum past load.
+Then the weighted Euclidean distance between the profile being forecast and each candidate profile was calculated using the following features: 
+maximum future temperature, 
+minimum future temperature,
+maximum past load,
+holiday type, 
+day of week,
+day of month, and
+month of year.
+When the holiday type always occurs on the same date each year then the month of year and day of month were used, and when the holiday type always occurs on the same day of week each year then the day of week was used.
+
 How far into the future/past the model acquires these values from is dictated by the model parameters.
 Typically, a value of 24 hours is chosen for looking into the past, and looking into the future is limited to the forecast horizon.
 The candidate profiles with the lowest distance were selected to be used as input, and their corresponding historical weather data was also supplied as an input.
