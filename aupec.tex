@@ -80,7 +80,7 @@ For example, batteries could be used to peak-shift, reducing maximum feeder load
 However, to achieve this requires sophisticated methods to optimize the power flow to and from the distributed resources.
 \par
 One method to achieve this is presented in \cite{Scott2014} and has been implemented on Bruny Island, Tasmania as part of the CONSORT project.
-The island is a popular holiday destination and during peak periods - such as Easter morning and afternoon peaks - the submarine feeder supplying the island becomes overloaded and has to be supplemented by a diesel generator located on the island.
+Bruny Island is a popular holiday destination and during peak periods - such as Easter morning and afternoon peaks - the submarine feeder supplying the island becomes overloaded and has to be supplemented by a diesel generator located on the island.
 The aim of the CONSORT project was to peak shift the load away from the morning and afternoon peaks to prevent the use of the generator.
 
 CONSORT relies on having an accurate forecast of day-ahead load at the feeder level.
@@ -105,7 +105,7 @@ The points in $X$ and $Y$ are evenly spaced, e.g. 30 or 60 minutes apart, and th
 $X$ and $Y$ are aligned on any five minute interval, allowing the forecast to be updated every five minutes.
 
 
-\subsection{Similar Profile Selection}
+\subsection{Similar Load Profile Selection}
 A load profile (profile for short) is a time series of electrical load over some period of time.
 In this paper, all profiles are measured in kVA and are univariate. 
 
@@ -208,7 +208,7 @@ This supposedly improves performance over a single head.
 \end{figure}
 
 \subsection{Feed-forward}
-The feed-forward layer is a two layer network that is applied identically to each time step.
+The feed-forward layer is a two layer network with a rectified linear unit in the middle.
 Given an input $\boldsymbol{X} \in \mathbb{R}^{T \times d}$, the output $\boldsymbol{Y} \in \mathbb{R}^{T \times d}$ is populated by Equation \ref{feedforward} where $\boldsymbol{W}_1 \in \mathbb{R}^{d \times 4d}$, $\boldsymbol{b}_1 \in \mathbb{R}^{4d}$, $\boldsymbol{W}_2 \in \mathbb{R}^{4d \times d}$, and $\boldsymbol{b}_2 \in \mathbb{R}^{d}$ are learned weights and biases.
 
 \begin{equation} \label{feedforward}
@@ -221,7 +221,7 @@ The layer is implemented per Equation \ref{dense_layer} where $\boldsymbol{W} \i
 
 
 
-\subsection{Addition \& Normalization}
+\subsection{Residuals \& Normalization}
 Residual connections \cite{He2015} are applied around each sub-layer.
 That is, the output of each sub-layer is given by $\boldsymbol{Y} = \boldsymbol{X} + \text{subLayer}(\boldsymbol{X})$ where subLayer$(\boldsymbol{X})$ is the original output of the sub-layer.
 The outputs are then normalized by applying layer normalization \cite{Ba2016}, as per Equation \ref{layernorm} where $\mu_{\boldsymbol{x}}$ and $\sigma_{\boldsymbol{x}}$ are the mean and variance of $\boldsymbol{x}$ respectively.
@@ -254,7 +254,6 @@ When training, the decoder input is set to the known expected value and the mode
 
 
 \section{Case Study}
-The forecasting system was applied to Bruny Island.
 
 \subsection{Bruny Island}
 Bruny Island, shown in Figure \ref{fig:bruny_map}, is located approximately two kilometres off the coast of south-east Tasmania with a permanent resident population of approximately 800 people \cite{census2016}.
@@ -262,8 +261,8 @@ The island is a popular holiday destination, with Easter periods typically exper
 The island is supplied by two feeders, depicted in Figure \ref{fig:bruny_network}.
 One feeder supplies a small load in the North of the island and the other supplies the main portion of the island to the South - this case study deals only with the feeder supplying the main portion of the island.
 
-During holiday period morning and afternoon peaks the submarine feeder reaches its capacity and a diesel generator located on the island is used to reduce the submarine feeder load.
-The substantial increase in load over this period can be seen in Figure \ref{fig:bruny_easter}.
+During holiday period morning and afternoon peaks the submarine feeder reaches its capacity and a diesel generator located on the island is used to reduce the feeder load.
+The substantial increase in load over the Easter holiday period can be seen in Figure \ref{fig:bruny_easter}.
 
 To avoid the use of the generator, the CONSORT project installed a set of residential batteries on the island for the purposes of peak-shifting.
 These batteries are coordinated by the network aware coordination algorithm (NAC).
@@ -293,13 +292,13 @@ The proposed architecture was implemented for this purpose.
 The following data was available from 2009-2018:
 \begin{itemize}
 	\item Apparent power at reclosers R1 through R4 (Figure \ref{fig:bruny_network}).
-	\item Temperature at Lenah Valley, Tasmania (50km from the island). 
+	\item Temperature at Lenah Valley, Tasmania (50km from Bruny Island). 
 	\item Apparent power consumption at St Helens, Tasmania.
 \end{itemize}
 
 This data was averaged to 30 minute resolution and split into a train set containing data from October 2009 through September 2014, and a test set containing data from October 2014 through April 2018.
 
-The network was supplied with data from the previous and future 24 hours, for a total input sequence length of 96 representing 48 hours at 30 minute resolution.
+The network was supplied with data from the previous and future 24 hours, for a total input sequence length of 96 (representing 48 hours at 30 minute resolution).
 The output sequence length was 48 (24 hours).
 
 The following time series were supplied as input to the model:
@@ -361,8 +360,8 @@ The forecasting system was configured with the parameters in table \ref{table:pa
 
 \subsection{Results}
 
-The forecaster was applied to historical data around Easter 2018, shown in Figure \ref{fig:bruny_easter}.
-Notably, the forecaster was able to predict the first peak.
+The forecaster was evaluated on historical data around Easter 2018, shown in Figure \ref{fig:bruny_easter}.
+Notably, the forecaster was able to accurately predict the first peak.
 This is contrast to load forecasting models that often tend toward simply repeating the previous day's load, which results in poor performance when predicting the first large peak of a holiday period.
 
 
@@ -383,7 +382,7 @@ This is contrast to load forecasting models that often tend toward simply repeat
 	\label{fig:bruny_mape}
 \end{figure}
 
-The performance of the forecast is quantified in Figure \ref{fig:bruny_mape}, showing its MAPE as a function of forecast horizon.
+The performance of the forecaster is quantified in Figure \ref{fig:bruny_mape}, showing its MAPE as a function of forecast horizon.
 As expected, the forecaster achieves high performance on predictions in the near future.
 \textbf{Graph needs to be redone by testing on more than just Easter.}
 Further, the errors between predicted and actual load resemble white noise, shown in Figure \ref{fig:bruny_hist}.
