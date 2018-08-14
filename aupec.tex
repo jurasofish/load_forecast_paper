@@ -361,6 +361,9 @@ The forecasting system was configured with the parameters in table \ref{table:pa
 
 \subsection{Results}
 
+The forecaster was applied to historical data around Easter 2018, shown in Figure \ref{fig:bruny_easter}.
+Notably, the forecaster was able to predict the first peak.
+This is contrast to load forecasting models that often tend toward simply repeating the previous day's load, which results in poor performance when predicting the first large peak of a holiday period.
 
 
 \begin{figure}[htbp]
@@ -379,6 +382,12 @@ The forecasting system was configured with the parameters in table \ref{table:pa
 		     \textbf{(graph needs to be tidied up)}}
 	\label{fig:bruny_mape}
 \end{figure}
+
+The performance of the forecast is quantified in Figure \ref{fig:bruny_mape}, showing its MAPE as a function of forecast horizon.
+As expected, the forecaster achieves high performance on predictions in the near future.
+\textbf{Graph needs to be redone by testing on more than just Easter.}
+Further, the errors between predicted and actual load resemble white noise, shown in Figure \ref{fig:bruny_hist}.
+This is a strong indication that the model has been able to generalize from the training data, as the training data contains few periods with such high load as Easter.
 
 \begin{figure}[htbp]
 	\centerline{\includegraphics[width=.35\textwidth]{images/errors_histogram.png}}
