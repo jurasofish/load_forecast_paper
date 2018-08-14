@@ -221,7 +221,7 @@ The outputs are then normalized by applying layer normalization \cite{Ba2016}, a
 \end{equation}
 
 \subsection{Dropout and Training}
-Dropout is applied in the following positions:
+Dropout is applied during training in the following positions:
 \begin{itemize}
 	\item At the output of the positional encoding of both the encoder and decoder.
 	\item Immediately after the softmax operation in the scaled dot-product attention.
