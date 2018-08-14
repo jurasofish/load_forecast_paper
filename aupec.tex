@@ -359,11 +359,37 @@ The forecasting system was configured with the parameters in table \ref{table:pa
 \end{table}
 
 \subsection{Results}
-Results of case study.
 
-Present evaluation based on historical data, focussing on holiday periods.
 
-Present briefly the event where the generator did not have to start.
+
+\begin{figure}[htbp]
+	\centerline{\includegraphics[width=.35\textwidth]{images/easter_2018_all_forecast.png}}
+	\caption{Forecasts over the Easter 2018 period.
+		The red dashed line is the actual historical load and the forecasts, performed every 30 minutes, are overlaid.
+		The single system is able to transition smoothly between holiday and normal periods.
+		\textbf{(graph needs to be tidied up)}}
+	\label{fig:easter_forecasts}
+\end{figure}
+
+\begin{figure}[htbp]
+	\centerline{\includegraphics[width=.35\textwidth]{images/bruny_mape.png}}
+	\caption{MAPE of each point in the forecast.
+		     As expected, the forecaster performance accuracy is generally better for points in the near future.
+		     \textbf{(graph needs to be tidied up)}}
+	\label{fig:easter_forecasts}
+\end{figure}
+
+\begin{figure}[htbp]
+	\centerline{\includegraphics[width=.35\textwidth]{images/errors_histogram.png}}
+	\caption{Distribution of forecast error.
+		     Notably, this approximates white noise.
+		     (\textbf{graph needs to be tidied up})}
+	\label{fig:easter_forecasts}
+\end{figure}
+
+
+
+
 
 \section{Conclusion}
 Blah Blah the forecaster works.
