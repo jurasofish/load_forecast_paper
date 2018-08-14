@@ -328,6 +328,7 @@ The data from St Helens was included because it was observed to display similar 
 If any value in an input or expected output sequence was bad or missing then the sequence was not used.
 As a result, approximately 4\% of the data was discarded.
 All data was normalized between zero and one prior to being supplied to the model.
+Additionally, the encoder inputs, decoder inputs and expected outputs were summed with white noise with a mean of 0 and standard deviation of 0.01 before being supplied to the model.
 
 The forecasting system was configured with the parameters in table \ref{table:parameters}, with the upper section giving transformer model parameters and the lower section giving weights used for similar load profile selection.
 
