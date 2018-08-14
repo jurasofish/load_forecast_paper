@@ -127,8 +127,8 @@ day of month, and
 month of year.
 When the holiday type always occurs on the same date each year then the month of year and day of month were used, and when the holiday type always occurs on the same day of week each year then the day of week was used.
 
-How far into the future/past the model acquires these values from is dictated by the model parameters.
-Typically, a value of 24 hours is chosen for looking into the past, and looking into the future is limited to the forecast horizon.
+These features are taken from the model input - thus requiring the model input to contain data from both the past and future if similar profile selection is to be used.
+Typically, 24 hours in both directions is used.
 The candidate profiles with the lowest distance were selected to be used as input, and their corresponding historical weather data was also supplied as an input.
 \par
 When training and testing the model the similar days were selected from both the past and the future, as the train and test datasets were only five years each.
