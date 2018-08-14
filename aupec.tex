@@ -263,12 +263,18 @@ The island is supplied by two feeders, depicted in Figure \ref{fig:bruny_network
 One feeder supplies a small load in the North of the island and the other supplies the main portion of the island to the South - this case study deals only with the feeder supplying the main portion of the island.
 
 During holiday period morning and afternoon peaks the submarine feeder reaches its capacity and a diesel generator located on the island is used to reduce the submarine feeder load.
-To avoid this, the CONSORT project installed a set of residential batteries on the island for the purposes of peak-shifting.
+The substantial increase in load over this period can be seen in Figure \ref{fig:bruny_easter}.
+
+To avoid the use of the generator, the CONSORT project installed a set of residential batteries on the island for the purposes of peak-shifting.
 These batteries are coordinated by the network aware coordination algorithm (NAC).
 In order to peak-shift while making efficient use of the batteries, the NAC requires an accurate forecast of load with a 24-hour horizon and 30-minute resolution.
 The proposed architecture was implemented for this purpose.
 
-
+\begin{figure}[htbp]
+	\centerline{\includegraphics[width=.35\textwidth]{images/easter_bruny.png}}
+	\caption{Easters on Bruny Island. All Easter Sundays are aligned.}
+	\label{fig:bruny_easter}
+\end{figure}
 
 \begin{figure}[htbp]
 	\centerline{\includegraphics[width=.35\textwidth]{images/bruny_island_map.png}}
