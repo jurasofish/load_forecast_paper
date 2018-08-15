@@ -396,7 +396,16 @@ This is a strong indication that the model has been able to generalize from the 
 	\label{fig:bruny_hist}
 \end{figure}
 
-When used as part of the NAC the forecaster was able to forecast large peaks, allowing the batteries to be used effectively and preventing the diesel generator from being used - Figure \ref{fig:bruny_nac}.
+When implemented in the NAC the forecaster was observed to reliably forecast large peaks.
+This allowed the batteries to be used to their full effect and in one instance this was sufficient to avoid the diesel generator from being used.
+The aftermath of this event can be seen in Figure \ref{fig:bruny_nac}.
+The upper section shows 24 hours of historical load in blue/black, plus the most recent forecast in dashed black (recalculated every five minutes) and all old forecasts in grey.
+The lower section shows the battery charge rate in green (kW, right axis) and the price paid to customers per kWh of support in red (\$, left axis).
+A negative value of battery charge rate indicates the batteries are supporting the grid.
+
+Typically the generator is switched on when load exceeds 1100 kVA.
+During the first peak the graph shows the batteries supplying between 50 and 100 kVA to the island.
+Without this support from the batteries it would have been required to use the generator.
 
 \begin{figure}[htbp]
 	\centerline{\includegraphics[width=.35\textwidth]{images/bruny_nac.png}}
@@ -442,7 +451,6 @@ TNW
 \section{TODO} 
 \begin{itemize}
 	\item Evan's going to put together some words, or fix mine, re NAC/CONSORT.
-	\item NAC results. Already have a graph of the time it saved the generator.
 	\item Conclusion
 	\item Abstract
 	\item clarify time series data averaging - middle, left, right....
