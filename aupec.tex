@@ -63,7 +63,7 @@ load forecasting, neural network, machine learning, DER
 \end{IEEEkeywords}
 
 \section{Introduction}
-The modern distribution network has changed more over the last ten years than it has in the previous hundred.
+The distribution network has changed more over the last ten years than it has in the previous hundred.
 In the past, generation and load were largely separate; power was generated exclusively at large stations, and power was consumed by customers after traversing the transmission and distribution networks. 
 These days, power is still consumed in the distribution network, but is also generated and manipulated by distributed energy resources (DER). 
 \par
@@ -91,7 +91,7 @@ One method to achieve this is presented in \cite{Scott2014} and has been impleme
 Bruny Island, shown in Figure \ref{fig:bruny_map}, is a popular holiday destination and during peak periods - such as Easter morning and afternoon peaks - the submarine feeder supplying the island becomes overloaded and has to be supplemented by a diesel generator located on the island.
 The aim of the CONSORT project was to peak shift the load away from the morning and afternoon peaks to prevent the use of the generator.
 
-CONSORT relies on having an accurate forecast of day-ahead load at the feeder level.
+The CONSORT project relies on having an accurate forecast of day-ahead load at the feeder level.
 Load forecasting methods commonly employed in industry are neither intended to forecast with high accuracy over a time period this short nor at such a low level in the distribution network \cite{CIGRE2016}.
 As a result, the optimization of the distributed resources was not as effective as it could be.
 \par
@@ -192,7 +192,7 @@ It uses the dot product of the query and each key to generate the weights, which
 In practice, the query row vectors are combined into a single matrix, $\boldsymbol{Q}$, allowing computationally cheap matrix calculations to be used to evaluate the attention outputs in parallel.
 The keys and values are represented by row vectors in $\boldsymbol{K}$ and $\boldsymbol{V}$, respectively.
 
-The dot product of the keys and queries is scaled (hence the name) by multiplying it by $\frac{1}{\sqrt{d_k}}$, with $d_k$ being the key and query dimension, to prevent the dot product from becoming large when $d_k$ is large.
+The dot product of the keys and queries is scaled (hence the name) by multiplying it by $1 / \sqrt{d_k}$, with $d_k$ being the key and query dimension, to prevent the dot product from becoming large when $d_k$ is large.
 A large dot product may cause the gradient of the softmax function to become small and cause issues with training of the model.
 
 The causal mask shown in Figure \ref{fig:multihead} is used exclusively in the decoder self-attention (where $\boldsymbol{Q}$, $\boldsymbol{K}$ and $\boldsymbol{V}$ are identical) to prevent the attention function from matching any query to a key that occurs after itself in time.
@@ -452,6 +452,14 @@ TNW
 	\item Evan's going to put together some words, or fix mine, re NAC/CONSORT.
 	\item Conclusion
 	\item Abstract
+	\item give a brief over view of tasmanian distribution network in the intro [neg]
+	\item CONSORT acronym [neg]
+	\item figures right and left to (a) and (b) [neg]
+	\item increase the figure text size a lil [neg]
+	\item ...Where should not be capitalized in sentences split by equation [neg]
+	\item full stops or not in figure captions [neg]
+	\item fig gridlines (plotly) [neg]
+	\item acknowledgements (probs talk to evan) [neg]
 \end{itemize}
 
 \section{Notes questions etc.} 
