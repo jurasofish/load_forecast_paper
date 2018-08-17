@@ -70,7 +70,7 @@ Networks were designed and built for demand profiles which were relatively stabl
 Increasingly, power is both consumed by customers connected to the distribution network and is also generated and manipulated by distributed energy resources (DER) within the distribution network, often behind the meter of individual consumers. 
 The impact of increasing levels of DER in the system creates, among other things, both a need and an opportunity to more actively manage distribution networks, while also resulting in a generally less predictable net demand profile.
 
-DERs are controllable devices in the power network that generate, store, and consume power. 
+DERs are controllable devices in the power network that generate, store, and/or consume power. 
 This includes solar photovoltaic generation (PV), battery storage, and electric vehicles. 
 In Australia, the dominant DER technology deployed to date is solar PV, with over 1.8 million systems now reportedly installed on residential properties \textbf{[Ref APVI]}. 
 It is widely anticipated that battery storage and electrical vehicle uptake may be just as rapid \textbf{[BNEF Ref]}.
@@ -96,7 +96,7 @@ One method to achieve this coordination of DER in distribution networks is prese
 Bruny Island, shown in Figure \ref{fig:bruny_map}, is a popular holiday destination and during peak periods - such as Easter morning and afternoon peaks - the submarine feeder supplying the island becomes overloaded and has to be supplemented by a diesel generator located on the island.
 The aim of the CONSORT project was to effectively peak shift the load away from the morning and afternoon peaks to prevent the use of the generator.
 
-To fulfil such an objective while using the available distributed resources optimally, the CONSORT project relies upon having an accurate forecast of day-ahead load at the feeder level.
+To fulfil such an objective while using the available distributed resources optimally, the CONSORT project relies upon having an accurate, online, 24-hour horizon forecast at the feeder level.
 Load forecasting methods commonly employed in industry are neither intended to forecast with high accuracy over a time period this short nor at such a low level in the distribution network \cite{CIGRE2016}.
 An improved method for producing accurate feeder-level forecasts is not only highly desirable for this project, but will also in future become a critical element of active distribution network management more generally.
 
@@ -123,8 +123,8 @@ In this paper, all profiles are measured in kVA and are univariate.
 Load profiles are influenced by exogenous factors such as weather, day of the week, and holiday type \cite{Weron2006}.
 Holiday type indicates which holiday the profile occurs on - Easter or Christmas for example.
 These different holidays are assigned different integer identifiers (with normal days assigned identifier 0) to form a time series.
-The forecasting system was provided with historical load profiles with similar exogenous data to the profile being forecast.
-\par
+The forecasting system was provided with historical load and weather profiles that had similar exogenous data to the load profile being forecast.
+
 Similar profiles were identified by first finding candidate similar profiles an integer multiple of 1 year $\pm$30 days away from the profile being forecast and filtering the candidates down to profiles with exactly matching hour and minute.
 The hour and minute used were in local time to account for changes around daylight savings.
 
@@ -281,16 +281,16 @@ In order to peak-shift while making efficient use of the batteries, the NAC requ
 The proposed architecture was implemented for this purpose.
 
 \begin{figure}[htbp]
-	\centerline{\includegraphics[width=.35\textwidth]{images/easter_bruny.png}}
-	\caption{Easters on Bruny Island 2008 through 2017. All Easter Sundays are aligned.}
-	\label{fig:bruny_easter}
-\end{figure}
-
-\begin{figure}[htbp]
 	\centerline{\includegraphics[width=.2\textwidth]{images/bruny_single_line.pdf}}
 	\caption{Single line schematic of distribution network on Bruny Island.
 			 The majority of load is in the South of the island, fed from submarine feeder A, while a small load is supplied in the North by submarine feeder B}
 	\label{fig:bruny_network}
+\end{figure}
+
+\begin{figure}[htbp]
+	\centerline{\includegraphics[width=.35\textwidth]{images/easter_bruny.png}}
+	\caption{Easters on Bruny Island 2008 through 2017. All Easter Sundays are aligned.}
+	\label{fig:bruny_easter}
 \end{figure}
 
 \subsection{Data and  Model Configuration}
@@ -301,7 +301,7 @@ The following data was available from 2009-2018:
 	\item Apparent power consumption at St Helens, Tasmania.
 \end{itemize}
 
-This data was averaged to 30 minute resolution and split into a train set containing data from October 2009 through September 2014, and a test set containing data from October 2014 through April 2018.
+This data was averaged to 30 minute resolution and split into a training set containing data from October 2009 through September 2014, and a testing set containing data from October 2014 through April 2018.
 
 The network was supplied with data from the previous and future 24 hours, for a total input sequence length of 96 (representing 48 hours at 30 minute resolution).
 The output sequence length was 48 (24 hours).
@@ -316,7 +316,7 @@ The following time series were supplied as input to the model:
 	\item Holiday type.
 \end{itemize}
 
-The source of the temperature data was Lenah Valley for testing and training, whereas for inference it was from the Bureau of Meteorology.
+The source of the temperature data was Lenah Valley for testing and training, whereas for inference it was from the historical and forecast data for Bruny Island from the Bureau of Meteorology.
 
 Additionally, five similar days were identified using data from R1.
 The data corresponding to the similar days from each of the following time series was provided as input:
@@ -333,7 +333,7 @@ It was theorized that it may provide additional information to the model, while 
 If any value in an input or expected output sequence was bad or missing then the sequence was not used.
 As a result, approximately 4\% of the data was discarded.
 All data was normalized between zero and one prior to being supplied to the model.
-Additionally, the encoder inputs, decoder inputs and expected outputs were summed with white noise with a mean of 0 and standard deviation of 0.01 before being supplied to the model.
+Additionally, the encoder inputs, decoder inputs and expected outputs were summed with randomly distributed noise with a mean of 0 and standard deviation of 0.01 before being supplied to the model.
 
 The forecasting system was configured with the parameters in table \ref{table:parameters}, with the upper section giving transformer model parameters and the lower section giving weights used for similar load profile selection.
 
@@ -402,17 +402,16 @@ This is a strong indication that the model has been able to generalize from the 
 When implemented live on the Bruny Island distribution network, during the July 2018 school holiday period, the forecaster was observed to reliably forecast large demand peaks.
 This enabled the fleet of distributed batteries to be used effectively in providing network support via net demand peak reduction. An accurate forecast, issued early enough in advance of the occurence of the demand peak, was observed to give the batteries adequate time to store energy in the lead up to, and discharge during the demand peak period. In at least one instance over the test period this was sufficient to avoid the island's diesel generator from being used at all, when it otherwise almost certainly would have been required.
 Data collected during this peak demand period can be seen in Figure \ref{fig:bruny_nac}.
-The upper section shows 24 hours of historical load in blue/black, plus the most recent forecast in dashed black (recalculated every five minutes) and all old forecasts in grey.
-The lower section shows the battery charge rate in green (kW, right axis) and the price paid to customers per kWh of support in red (\$, left axis).
-A negative value of battery charge rate indicates the batteries are supporting the grid.
+The upper section shows 24 hours of historical load in black, plus the most recent 24-hour horizon forecast in dashed black (recalculated every five minutes) and all old forecasts in grey.
+The lower section shows the battery charge rate, where a negative value of battery charge rate indicates the batteries are supporting the grid.
 
 Typically the generator is switched on when load exceeds 1050 kVA.
 During the first peak the graph shows the batteries supplying between 50 and 100 kVA to the island.
 Without this support from the batteries it would have been required to use the generator.
 
 \begin{figure}[htbp]
-	\centerline{\includegraphics[width=.35\textwidth]{images/bruny_nac.png}}
-	\caption{The forecaster was able to predict the large peak (top), allowing the batteries to support the island (bottom, green) and prevent the use of the generator.}
+	\centerline{\includegraphics[width=.35\textwidth]{images/bruny_nac.pdf}}
+	\caption{The forecaster was able to predict the large peak (top), allowing the batteries to support the island (bottom) and prevent the use of the generator.}
 	\label{fig:bruny_nac}
 \end{figure}
 
@@ -470,6 +469,19 @@ This work has been supported by TasNetworks, who also provided network and deman
 	\item figure \ref{fig:bruny_easter} is pretty hard to view easily. text is too small, probably too many days shown. You may as well use this opportunity to show how the profiles look over just a few days perhaps.. ie give the reader a sense for the difficulty of the problem etc. [evan]
 	\item  .[figure \ref{fig:bruny_network}]  there is also a North Bruny A load  that is fed from Feeder A. Prob not too important to make it so accurate.... but just looks a little like there are only two lumped loads on feeder A... no big deal  [evan]
 	\item .[figure \ref{fig:easter_forecasts}] it is too hard to see the forecast vs actual for this many days. really need to zoom in I think... text too small on figs too
+	\item Explain better why I'm finding similar days, and how I'm using them [evan, paul]
+	\item clarify use of future temperature, etc. in similar day selection [paul]
+	\item \textbf{PAUL} - if I interpret your comment correctly - the weather forecast is used to find similar days - it's used for the future min and max temperature values. When online, this is done after the program receives the weather forecast as an input.
+	\item the description of where the model gets its similar day values from is pretty bad. Needs to be revised [paul]
+	\item \textbf{PAUL} - Using all ten years in inference is certainly possible and probably valid. Need to harass a statistician and get their opinion on the validity. Would also require a fair modification to the program :(  currently inference mode IS test mode.
+	\item full stop at end of every figure caption. [neg, paul]
+	\item expand figure \ref{fig:bruny_easter} to show fewer days. [paul]
+	\item reconfigure figure \ref{fig:bruny_network} to consume less vertical space. Could make it horizontal. [paul]
+	\item stretch out figure \ref{fig:easter_forecasts} to show fewer days [paul]
+	
+	
+	
+	
 	
 \end{itemize}
 
