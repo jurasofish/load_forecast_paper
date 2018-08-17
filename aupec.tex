@@ -154,7 +154,7 @@ When training and testing the model the similar load profiles were selected from
 
 \subsection{Transformer}
 The transformer neural network architecture, shown in figure \ref{fig:transformer}, was introduced by \cite{Vaswani2017} in 2017 and at the time was the state of the art in neural machine translation.
-This architecture follows the standard sequence-to-sequence/encoder-decoder architecture: the encoder transforms an input $X = (\boldsymbol{x}_1, ..., \boldsymbol{x}_P)$ into a latent representation $Z = (\boldsymbol{z}_1, ..., \boldsymbol{z}_Q)$, and the decoder transforms $Z$ into an output sequence $Y = (\boldsymbol{y}_1, ..., \boldsymbol{y}_R)$.
+This architecture follows the standard sequence-to-sequence/encoder-decoder architecture: the encoder transforms an input $X = (\boldsymbol{x}_1, ..., \boldsymbol{x}_P)$ into a latent representation $Z = (\boldsymbol{z}_1, ..., \boldsymbol{z}_M)$, and the decoder transforms $Z$ into an output sequence $Y = (\boldsymbol{y}_1, ..., \boldsymbol{y}_R)$, where $x_t$, $y_t$, and $z_t$ are of arbitrary dimension.
 The latent representation is used solely by the model as an internal representation of the input data.
 
 The encoder is constructed of a stack of $L$ identical layers, each containing two sub-layers.
@@ -457,7 +457,6 @@ This work has been supported by TasNetworks, who also provided network and deman
 	\item Conclusion
 	\item Abstract
 	\item italicise \textit{similar days} maybe to make it clear that they are "a thing" [evan]
-	\item some conflict between Q,K,V attention and time series length notation.
 	\item figure \ref{fig:bruny_easter} is pretty hard to view easily. text is too small, probably too many days shown. You may as well use this opportunity to show how the profiles look over just a few days perhaps.. ie give the reader a sense for the difficulty of the problem etc. [evan]
 	\item  .[figure \ref{fig:bruny_network}]  there is also a North Bruny A load  that is fed from Feeder A. Prob not too important to make it so accurate.... but just looks a little like there are only two lumped loads on feeder A... no big deal  [evan]
 	\item .[figure \ref{fig:easter_forecasts}] it is too hard to see the forecast vs actual for this many days. really need to zoom in I think... text too small on figs too
