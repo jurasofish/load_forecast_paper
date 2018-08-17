@@ -63,23 +63,28 @@ load forecasting, neural network, machine learning, DER
 \end{IEEEkeywords}
 
 \section{Introduction}
-The distribution network has changed more over the last ten years than it has in the previous hundred.
-In the past, generation and load were largely separate; power was generated exclusively at large stations, and power was consumed by customers after traversing the transmission and distribution networks. 
-These days, power is still consumed in the distribution network, but is also generated and manipulated by distributed energy resources (DER). 
-\par
-DERs are controllable devices in the power network that generate, store, and consume load. 
-This includes solar generation (PV), battery storage, and electric vehicles (EV). 
-\par
-The Tasmanian distribution network is forecast to experience significant increases in these technologies by 2025: \\
+Electricity distribution networks, and the way in which they are managed, are currently going through a significant transition, with perhaps more change over the last ten years than in the previous hundred. %the sort of statement where a ref would help strengthen it, but OK not to have
+Until recently, generation and load were largely viewed and managed separately: power was produced almost exclusively by large, centralised generating units, and was consumed by customers after \textbf{reticulation} via %traversing is not quite right word. reticulation... hmm???
+the transmission and distribution networks. 
+Networks were designed and built for demand profiles which were relatively stable over time, with demand forecasting at distribution feeder level required primarily for network planning purposes only. 
+Increasingly, power is both consumed by customers connected to the distribution network and is also generated and manipulated by distributed energy resources (DER) within the distribution network, often behind the meter of individual consumers. 
+The impact of increasing levels of DER in the system creates, among other things, both a need and an opportunity to more actively manage distribution networks, while also resulting in a generally less predictable net demand profile.
+
+DERs are controllable devices in the power network that generate, store, and consume power. 
+This includes solar photovoltaic generation (PV), battery storage, and electric vehicles. 
+In Australia, the dominant DER technology deployed to date is solar PV, with over 1.8 million systems now reportedly installed on residential properties \textbf{[Ref APVI]}. 
+It is widely anticipated that battery storage and electrical vehicle uptake may be just as rapid \textbf{[BNEF Ref]}.
+
+The Tasmanian distribution network, meanwhile, is forecast to experience significant increases in these technologies by 2025: \\
 \begin{itemize}
 	\item 1500\% increase in battery storage capacity (from 5MWh to 75MWh) \cite{Jacobs2017}
 	\item 170\% increase in PV installation capacity (from 130MW to 220MW) \cite{Jacobs2017}
 	\item 39\% of new car sales will be EVs - the highest in the country \cite{AEMO2016}
 \end{itemize}
 
-This changing network presents an opportunity to maximize the use of existing assets by delaying the need for network augmentations, while also providing customers with a more reliable supply of power.
+The changing nature of the distribution network presents an opportunity to maximize the use of existing assets by delaying the need for network augmentations, while also providing customers with a more reliable supply of power.
 For example, batteries could be used to peak-shift, reducing maximum feeder load.
-However, to achieve this requires sophisticated methods to optimize the power flow to and from the distributed resources.
+However, to achieve this reliably and with optimal use of available DER generally requires sophisticated methods to optimize the power flow to and from the distributed resources.
 
 \begin{figure}[htbp]
 	\centerline{\includegraphics[width=.35\textwidth]{images/bruny_island_map.png}}
@@ -87,25 +92,22 @@ However, to achieve this requires sophisticated methods to optimize the power fl
 	\label{fig:bruny_map}
 \end{figure}
 
-One method to achieve this is presented in \cite{Scott2014} and has been implemented on Bruny Island, Tasmania as part of the CONSORT project.
+One method to achieve this coordination of DER in distribution networks is presented in \cite{Scott2014} and has been implemented on Bruny Island, Tasmania as part of the CONSORT project.
 Bruny Island, shown in Figure \ref{fig:bruny_map}, is a popular holiday destination and during peak periods - such as Easter morning and afternoon peaks - the submarine feeder supplying the island becomes overloaded and has to be supplemented by a diesel generator located on the island.
-The aim of the CONSORT project was to peak shift the load away from the morning and afternoon peaks to prevent the use of the generator.
+The aim of the CONSORT project was to effectively peak shift the load away from the morning and afternoon peaks to prevent the use of the generator.
 
-The CONSORT project relies on having an accurate forecast of day-ahead load at the feeder level.
+To fulfil such an objective while using the available distributed resources optimally, the CONSORT project relies upon having an accurate forecast of day-ahead load at the feeder level.
 Load forecasting methods commonly employed in industry are neither intended to forecast with high accuracy over a time period this short nor at such a low level in the distribution network \cite{CIGRE2016}.
-As a result, the optimization of the distributed resources was not as effective as it could be.
-\par
-To solve this, a neural network-based load forecasting system is proposed.
-This system was applied in the CONSORT project as a case study.
-The load forecasting system was shown to perform equally well on holidays, where the load is generally large, and on normal days. 
-This project and case study is supported by TasNetworks.
+An improved method for producing accurate feeder-level forecasts is not only highly desirable for this project, but will also in future become a critical element of active distribution network management more generally.
 
+In this paper, a novel neural network-based day-ahead feeder level load forecasting system is developed, with its performance evaluated using ten years of historical demand data for training and testing. We implement the forecast live on Tasmania's Bruny Island distribution network, enabling the CONSORT project's residential battery systems to effectively support the network during periods of peak demand on the network.
 
-\section{Proposed Forecasting System}
-Recurrent Neural Networks (RNN) have recently been popular for load forecasting \cite{Kong2018}.
+\section{Forecasting System Architecture}
+Recurrent Neural Networks (RNN) have recently been popular for load forecasting in electricity networks \cite{Kong2018}.
 However, RNNs have been out-performed by the Transformer \cite{Vaswani2017} model in several domains including machine translation \cite{Vaswani2017} (where the architecture was first proposed and applied), medical time series forecasting and regression \cite{Song2017}, and image generation \cite{Parmar2018}.
 \par
 The proposed forecasting system uses a Transformer neural network model combined with similar load profile selection.
+The basis for the Transformer model is... \textbf{add a descriptive sentence}
 \par
 Given a multivariate time series $X = (\boldsymbol{x}_1, ..., \boldsymbol{x}_P)$, with $\boldsymbol{x}_t \in \mathbb{R}^S$ denoting a point in time comprised of $S$ observations (a single point in an S-variate time series), the forecasting system produces a univariate time series forecast $Y = (\boldsymbol{y}_1, ..., \boldsymbol{y}_R)$ with $\boldsymbol{y}_t \in \mathbb{R}^1$.
 \par
@@ -114,7 +116,8 @@ $X$ and $Y$ are aligned on any five minute interval, allowing the forecast to be
 
 
 \subsection{Similar Load Profile Selection}
-A load profile (profile for short) is a time series of electrical load over some period of time.
+\textbf{add a sentence at the start explaining why you have this section, what the relevance is etc.}
+A load profile \textbf{(profile for short)} is a time series of electrical load over some period of time.
 In this paper, all profiles are measured in kVA and are univariate. 
 
 Load profiles are influenced by exogenous factors such as weather, day of the week, and holiday type \cite{Weron2006}.
@@ -310,7 +313,7 @@ The following time series were supplied as input to the model:
 	\item Day of the week as an integer from 0 to 6 (local time).
 	\item Minutes since midnight (local time).
 	\item Boolean 1 or 0 indicating whether it is a holiday.
-	\item Holiday ID.
+	\item Holiday type.
 \end{itemize}
 
 The source of the temperature data was Lenah Valley for testing and training, whereas for inference it was from the Bureau of Meteorology.
@@ -363,7 +366,7 @@ The forecasting system was configured with the parameters in table \ref{table:pa
 
 \subsection{Results}
 
-The forecaster was evaluated on historical data around Easter 2018, shown in Figure \ref{fig:bruny_easter}.
+The forecaster was first evaluated on historical data around Easter 2018, shown in Figure \ref{fig:easter_forecasts}.
 Notably, the forecaster was able to accurately predict the first large peak.
 This is contrast to load forecasting models that often tend toward simply repeating the previous day's load, which results in poor performance when predicting the first large peak of a holiday period.
 
@@ -396,14 +399,14 @@ This is a strong indication that the model has been able to generalize from the 
 	\label{fig:bruny_hist}
 \end{figure}
 
-When implemented in the NAC the forecaster was observed to reliably forecast large peaks.
-This allowed the batteries to be used to their full effect and in one instance this was sufficient to avoid the diesel generator from being used.
-The aftermath of this event can be seen in Figure \ref{fig:bruny_nac}.
+When implemented live on the Bruny Island distribution network, during the July 2018 school holiday period, the forecaster was observed to reliably forecast large demand peaks.
+This enabled the fleet of distributed batteries to be used effectively in providing network support via net demand peak reduction. An accurate forecast, issued early enough in advance of the occurence of the demand peak, was observed to give the batteries adequate time to store energy in the lead up to, and discharge during the demand peak period. In at least one instance over the test period this was sufficient to avoid the island's diesel generator from being used at all, when it otherwise almost certainly would have been required.
+Data collected during this peak demand period can be seen in Figure \ref{fig:bruny_nac}.
 The upper section shows 24 hours of historical load in blue/black, plus the most recent forecast in dashed black (recalculated every five minutes) and all old forecasts in grey.
 The lower section shows the battery charge rate in green (kW, right axis) and the price paid to customers per kWh of support in red (\$, left axis).
 A negative value of battery charge rate indicates the batteries are supporting the grid.
 
-Typically the generator is switched on when load exceeds 1100 kVA.
+Typically the generator is switched on when load exceeds 1050 kVA.
 During the first peak the graph shows the batteries supplying between 50 and 100 kVA to the island.
 Without this support from the batteries it would have been required to use the generator.
 
@@ -441,7 +444,7 @@ Reserve some space. Reserve some space. Reserve some space.
 
 
 \section*{Acknowledgment}
-TNW
+This work has been supported by TasNetworks, who also provided network and demand data. It has also been supported by researchers from the ARENA-funded CONSORT Bruny Island Battery Trial.
 
 
 \bibliographystyle{IEEEtran}
@@ -449,7 +452,6 @@ TNW
 
 \section{TODO} 
 \begin{itemize}
-	\item Evan's going to put together some words, or fix mine, re NAC/CONSORT.
 	\item Conclusion
 	\item Abstract
 	\item give a brief over view of tasmanian distribution network in the intro [neg]
@@ -460,6 +462,15 @@ TNW
 	\item full stops or not in figure captions [neg]
 	\item fig gridlines (plotly) [neg]
 	\item acknowledgements (probs talk to evan) [neg]
+	\item italicise \textit{similar days} maybe to make it clear that they are "a thing" [evan]
+	\item make caption of figure \ref{fig:bruny_mape} more independent - specify the period from which the statistics come [evan]
+	\item put in new NAC plot [paul]
+	\item some conflict between Q,K,V attention and time series length notation.
+	\item remove (profile for short) it's a lil stinted
+	\item figure \ref{fig:bruny_easter} is pretty hard to view easily. text is too small, probably too many days shown. You may as well use this opportunity to show how the profiles look over just a few days perhaps.. ie give the reader a sense for the difficulty of the problem etc. [evan]
+	\item  .[figure \ref{fig:bruny_network}]  there is also a North Bruny A load  that is fed from Feeder A. Prob not too important to make it so accurate.... but just looks a little like there are only two lumped loads on feeder A... no big deal  [evan]
+	\item .[figure \ref{fig:easter_forecasts}] it is too hard to see the forecast vs actual for this many days. really need to zoom in I think... text too small on figs too
+	
 \end{itemize}
 
 \section{Notes questions etc.} 
