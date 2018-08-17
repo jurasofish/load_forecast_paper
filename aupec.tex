@@ -142,7 +142,7 @@ These features are taken from the model input, thus requiring the model input to
 Typically, 24 hours in both directions is used.
 The candidate profiles with the lowest distance were selected to be used as input, and their corresponding historical weather data was also supplied as an input.
 \par
-When training and testing the model the similar days were selected from both the past and the future, as the train and test datasets were only five years each.
+When training and testing the model the similar profiles were selected from both the past and the future, as the train and test datasets were only five years each.
 
 \begin{figure}[htbp]
 	\centerline{\includegraphics[width=.35\textwidth]{images/transformer.pdf}}
@@ -320,8 +320,8 @@ The following time series were supplied as input to the model:
 
 The source of the temperature data was Lenah Valley for testing and training, whereas for inference it was from the historical and forecast data for Bruny Island from the Bureau of Meteorology.
 
-Additionally, five similar days were identified using data from R1.
-The data corresponding to the similar days from each of the following time series was provided as input:
+Additionally, five similar profiles were identified using data from R1.
+The data corresponding to the similar profiles from each of the following time series was provided as input:
 \begin{itemize}
 	\item Reclosers R1, R2, R3, and R4 (as separate time series).
 	\item St Helens recloser.
