@@ -103,8 +103,8 @@ An improved method for producing accurate feeder-level forecasts is not only hig
 In this paper, a novel neural network-based day-ahead feeder level load forecasting system is developed, with its performance evaluated using ten years of historical demand data for training and testing. We implement the forecast live on Tasmania's Bruny Island distribution network, enabling the CONSORT project's residential battery systems to effectively support the network during periods of peak demand on the network.
 
 \section{Forecasting System Architecture}
-A load profile \textbf{(profile for short)} is a time series of electrical load over some period of time, and load forecasting is the process of predicting a load profile some time in advance.
-In this paper, all profiles are measured in kVA and are univariate.
+A load profile is a time series of electrical load over some period of time, and load forecasting is the process of predicting a load profile some time in advance.
+In this paper, all load profiles are measured in kVA and are univariate.
 
 Recurrent Neural Networks (RNN) have recently been popular for load forecasting in electricity networks \cite{Kong2018}.
 However, RNNs have been out-performed by the Transformer \cite{Vaswani2017} model in several domains including machine translation \cite{Vaswani2017} (where the architecture was first proposed and applied), medical time series forecasting and regression \cite{Song2017}, and image generation \cite{Parmar2018}.
@@ -123,14 +123,14 @@ $X$ and $Y$ are aligned on any five minute interval, allowing the forecast to be
 
 
 Load profiles are influenced by exogenous factors such as weather, day of the week, and holiday type \cite{Weron2006}.
-Holiday type indicates which holiday the profile occurs on - Easter or Christmas for example.
+Holiday type indicates which holiday the load profile occurs on - Easter or Christmas for example.
 These different holidays are assigned different integer identifiers (with normal days assigned identifier 0) to form a time series.
 The forecasting system was provided with historical load and weather profiles that had similar exogenous data to the load profile being forecast.
 
-Similar profiles were identified by first finding candidate similar profiles an integer multiple of 1 year $\pm$30 days away from the profile being forecast and filtering the candidates down to profiles with exactly matching hour and minute.
+Similar load profiles were identified by first finding candidate similar profiles an integer multiple of 1 year $\pm$30 days away from the load profile being forecast and filtering the candidates down to load profiles with exactly matching hour and minute.
 The hour and minute used were in local time to account for changes around daylight savings.
 
-Then the weighted Euclidean distance between the profile being forecast and each candidate profile was calculated using the following features: 
+Then the weighted Euclidean distance between the load profile being forecast and each candidate load profile was calculated using the following features: 
 maximum future temperature, 
 minimum future temperature,
 maximum past load,
@@ -140,11 +140,11 @@ day of the month, and
 month of the year.
 When the holiday type always occurs on the same date each year then the month of the year and day of the month were used, and when the holiday type always occurs on the same day of the week each year then the day of the week was used.
 
-These features are taken from the model input, thus requiring the model input to contain data from both the past and future if similar profile selection is to be used.
+These features are taken from the model input, thus requiring the model input to contain data from both the past and future if similar load profile selection is to be used.
 Typically, 24 hours in both directions is used.
-The candidate profiles with the lowest distance were selected to be used as input, and their corresponding historical weather data was also supplied as an input.
+The candidate load profiles with the lowest distance were selected to be used as input, and their corresponding historical weather data was also supplied as an input.
 \par
-When training and testing the model the similar profiles were selected from both the past and the future, as the train and test datasets were only five years each.
+When training and testing the model the similar load profiles were selected from both the past and the future, as the train and test datasets were only five years each.
 
 \begin{figure}[htbp]
 	\centerline{\includegraphics[width=.35\textwidth]{images/transformer.pdf}}
@@ -322,8 +322,8 @@ The following time series were supplied as input to the model:
 
 The source of the temperature data was Lenah Valley for testing and training, whereas for inference it was from the historical and forecast data for Bruny Island from the Bureau of Meteorology.
 
-Additionally, five similar profiles were identified using data from R1.
-The data corresponding to the similar profiles from each of the following time series was provided as input:
+Additionally, five similar load profiles were identified using data from R1.
+The data corresponding to the similar load profiles from each of the following time series was provided as input:
 \begin{itemize}
 	\item Reclosers R1, R2, R3, and R4 (as separate time series).
 	\item St Helens recloser.
@@ -462,7 +462,6 @@ This work has been supported by TasNetworks, who also provided network and deman
 	\item make caption of figure \ref{fig:bruny_mape} more independent - specify the period from which the statistics come [evan]
 	\item put in new NAC plot [paul]
 	\item some conflict between Q,K,V attention and time series length notation.
-	\item remove (profile for short) it's a lil stinted
 	\item figure \ref{fig:bruny_easter} is pretty hard to view easily. text is too small, probably too many days shown. You may as well use this opportunity to show how the profiles look over just a few days perhaps.. ie give the reader a sense for the difficulty of the problem etc. [evan]
 	\item  .[figure \ref{fig:bruny_network}]  there is also a North Bruny A load  that is fed from Feeder A. Prob not too important to make it so accurate.... but just looks a little like there are only two lumped loads on feeder A... no big deal  [evan]
 	\item .[figure \ref{fig:easter_forecasts}] it is too hard to see the forecast vs actual for this many days. really need to zoom in I think... text too small on figs too
