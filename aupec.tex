@@ -103,6 +103,9 @@ An improved method for producing accurate feeder-level forecasts is not only hig
 In this paper, a novel neural network-based day-ahead feeder level load forecasting system is developed, with its performance evaluated using ten years of historical demand data for training and testing. We implement the forecast live on Tasmania's Bruny Island distribution network, enabling the CONSORT project's residential battery systems to effectively support the network during periods of peak demand on the network.
 
 \section{Forecasting System Architecture}
+A load profile \textbf{(profile for short)} is a time series of electrical load over some period of time, and load forecasting is the process of predicting a load profile some time in advance.
+In this paper, all profiles are measured in kVA and are univariate.
+
 Recurrent Neural Networks (RNN) have recently been popular for load forecasting in electricity networks \cite{Kong2018}.
 However, RNNs have been out-performed by the Transformer \cite{Vaswani2017} model in several domains including machine translation \cite{Vaswani2017} (where the architecture was first proposed and applied), medical time series forecasting and regression \cite{Song2017}, and image generation \cite{Parmar2018}.
 \par
@@ -117,8 +120,7 @@ $X$ and $Y$ are aligned on any five minute interval, allowing the forecast to be
 
 \subsection{Similar Load Profile Selection}
 \textbf{add a sentence at the start explaining why you have this section, what the relevance is etc.}
-A load profile \textbf{(profile for short)} is a time series of electrical load over some period of time.
-In this paper, all profiles are measured in kVA and are univariate. 
+
 
 Load profiles are influenced by exogenous factors such as weather, day of the week, and holiday type \cite{Weron2006}.
 Holiday type indicates which holiday the profile occurs on - Easter or Christmas for example.
