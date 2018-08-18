@@ -212,8 +212,8 @@ Scaled dot-product attention is then run independently on each set.
 The results are concatenated and put through a final dense layer to produce the output of the attention function.
 The dense layer function on the output is defined by Equation \ref{dense_layer} where $\boldsymbol{W} \in \mathbb{R}^{d \times d}$ is a learned weight matrix and $\boldsymbol{b} \in \mathbb{R}^{d}$ is a learned bias vector.
 
-The theory behind multi-head attention is that the dense layer combined with the split allows the model to pick out information from different subspaces in the input and direct these to different attention heads.
-This supposedly improves performance over a single head.
+The dense layer combined with the split allows the multi-head attention to pick out information from different subspaces in the input and direct these to different attention heads.
+This is in contrast to a single head which is forced to average all subspaces.
 
 \begin{figure}[htbp]
 	\centerline{\includegraphics[width=.35\textwidth]{images/multihead_attn.pdf}}
@@ -467,7 +467,6 @@ This work has been supported by TasNetworks, who also provided network and deman
 	\item stretch out figure \ref{fig:easter_forecasts} to show fewer days [paul]
 	\item why have RNNs recently been popular for load forecasting [paoli]
 	\item why is transformer better than RNN [paoli]
-	\item "supposedly improves performance" not good eh agreed but empirical so probably good but may simply remove this [paoli]
 	\item perhaps remove reference to Lenah Valley temperature and make a more general statement about weather station location [paoli]
 	\item make it clearer that similar profiles can come from anywhere, eg. st helens [paoli]
 	\item specify data normalisation method. [paoli]
