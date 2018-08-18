@@ -245,13 +245,8 @@ The outputs are then normalized by applying layer normalization \cite{Ba2016}, a
 \end{equation}
 
 \subsection{Dropout and Training}
-Dropout is applied during training in the following positions:
-\begin{itemize}
-	\item At the output of the positional encoding of both the encoder and decoder.
-	\item Immediately after the softmax operation in the scaled dot-product attention.
-\end{itemize}
-The model is trained using the Adam optimizer \cite{Kingma2014}.
-The loss function is a modified sum of errors squared.
+To help prevent overfitting to the training data, dropout \cite{srivastava14a} is applied during training at the output of the positional encoding of both the encoder and decoder, and immediately after the softmax operation in the scaled dot-product attention.
+The model is trained using the Adam optimizer \cite{Kingma2014} and a modified sum of errors squared loss function.
 Given a vector $\boldsymbol{y}$ of predictions from the model and a vector $\boldsymbol{y'}$ of expected predictions the loss function $l$ is given by 
 \begin{equation}
 l = \sum_{t=0}^{R}((\boldsymbol{y}_t - \boldsymbol{y'}_t)^2 \times |\boldsymbol{y'}_t|^c)
