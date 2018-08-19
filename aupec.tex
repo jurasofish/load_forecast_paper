@@ -331,7 +331,7 @@ It was theorized that it may provide additional information to the model, while 
 
 If any value in an input or expected output sequence was bad or missing then the sequence was not used.
 As a result, approximately 4\% of the data was discarded.
-All data was normalized between zero and one prior to being supplied to the model.
+All data was normalized between zero and one by feature scaling prior to being supplied to the model.
 Additionally, the encoder inputs, decoder inputs and expected outputs were summed with randomly distributed noise with a mean of 0 and standard deviation of 0.01 before being supplied to the model.
 
 The forecasting system was configured with the parameters in table \ref{table:parameters}, with the upper section giving transformer model parameters and the lower section giving weights used for similar load profile selection.
@@ -468,7 +468,6 @@ This work has been supported by TasNetworks, who also provided network and deman
 	\item why have RNNs recently been popular for load forecasting [paoli]
 	\item why is transformer better than RNN [paoli]
 	\item make it clearer that similar profiles can come from anywhere, eg. st helens [paoli]
-	\item specify data normalisation method. [paoli]
 	\item lord that bumpy section in the MAPE graph needs some love
 	\item gaussian error plot [paoli]
 	
