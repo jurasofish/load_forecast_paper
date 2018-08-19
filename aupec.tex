@@ -195,7 +195,7 @@ The keys and values are represented by row vectors in $\boldsymbol{K}$ and $\bol
 
 The dot product of the keys and queries is scaled (hence the name) by multiplying it by $1 / \sqrt{d_k}$, with $d_k$ being the key and query dimension, to prevent the dot product from becoming large when $d_k$ is large as this may cause the softmax gradient to become very small and affect the gradient descent training.
 
-The causal mask shown in Figure \ref{fig:multihead} is used exclusively in the decoder self-attention (where $\boldsymbol{Q}$, $\boldsymbol{K}$ and $\boldsymbol{V}$ are identical) to prevent the attention function from matching any query to a key that occurs after itself in time.
+The causal mask shown in Figure \ref{fig:multihead} is used exclusively in the decoder self-attention to prevent the attention function from matching any query to a key that occurs after itself in time.
 This is achieved by leaving the lower triangular portion of the matrix untouched and setting the other values to be large negative numbers, indicating a very poor match.
 
 Multi-head attention, shown in Figure \ref{fig:multihead} (b), applies a separate dense layer to each of the values, queries, and keys. 
