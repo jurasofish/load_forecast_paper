@@ -390,13 +390,13 @@ This is contrast to load forecasting models that often tend toward simply repeat
 The performance of the forecaster was evaluated on every Easter, Queen's Birthday, and July school holiday period from 2015 through 2018 (2018 excludes July).
 The results are shown in Figure \ref{fig:bruny_mape}, showing the mean absolute percentage error (MAPE) as a function of forecast horizon.
 As expected, the forecaster achieves high performance on predictions in the near future.
-Furthermore, the errors between predicted and actual load resemble white noise, shown in Figure \ref{fig:bruny_hist}.
-This is evidence that the model has been able to generalize from the training data, as the training data is mostly comprised of normal days.
+Furthermore, the errors between predicted and actual load are fairly evenly distributed around zero, shown in Figure \ref{fig:bruny_hist}.
+There is some skew in the errors toward under-predicting, but overall this is evidence that the model has been able to generalize from the training data, as the training data is mostly comprised of normal days.
 
 \begin{figure}[htbp]
 	\centerline{\includegraphics[width=.35\textwidth]{images/errors_histogram.png}}
 	\caption{Distribution of forecast error when evaluated over the same periods as Figure \ref{fig:bruny_mape}.
-		     Notably, this approximates white noise.}
+			 The error has a mean of -15 kVA.}
 	\label{fig:bruny_hist}
 \end{figure}
 
@@ -463,7 +463,6 @@ This work has been supported by TasNetworks, who also provided network and deman
 	\item why is transformer better than RNN [paoli]
 	\item make it clearer that similar profiles can come from anywhere, eg. st helens [paoli]
 	\item lord that bumpy section in the MAPE graph needs some love
-	\item gaussian error plot [paoli]
 	
 	\item \textbf{PAUL} - Using all ten years in inference is certainly possible and probably valid. Need to harass a statistician and get their opinion on the validity. Would also require a fair modification to the program :(  currently inference mode IS test mode.
 	\item \textbf{PAUL} - if I interpret your comment correctly - the weather forecast is used to find similar days - it's used for the future min and max temperature values. When online, this is done after the program receives the weather forecast as an input.
