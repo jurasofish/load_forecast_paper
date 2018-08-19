@@ -111,7 +111,7 @@ However, RNNs have been out-performed by the Transformer \cite{Vaswani2017} mode
 The Transformer is a purely attention-based neural network model and does not rely on recursion like traditional RNNs.
 This allows a larger degree of parallelism to reduce training time, while also allowing the model to effectively handle long-range dependencies in the inputs.
 
-The proposed forecasting system uses a Transformer neural network model combined with similar load profile selection.
+The proposed forecasting system uses a Transformer neural network model combined with similar period selection.
 
 In general, the forecasting system can be described as taking in a multivariate time series $X = (\boldsymbol{x}_1, ..., \boldsymbol{x}_P)$, with $\boldsymbol{x}_t \in \mathbb{R}^S$ denoting a point in time comprising $S$ observations (a single point in an S-variate time series), and producing a univariate time series forecast $Y = (\boldsymbol{y}_1, ..., \boldsymbol{y}_R)$ with $\boldsymbol{y}_t \in \mathbb{R}^1$ and $P$ and $R$ being the input and output time series lengths respectively.
 
@@ -119,19 +119,19 @@ The points in $X$ and $Y$ are evenly spaced in time, e.g. 30 or 60 minutes apart
 $X$ and $Y$ are aligned on any five minute interval, allowing the forecast to be updated every five minutes.
 
 
-\subsection{Similar Load Profile Selection}
+\subsection{Similar Period Selection}
 Load profiles are influenced by exogenous factors such as weather, day of the week, and holiday type \cite{Weron2006}.
 A simple and intuitive method of load forecasting is to find periods in the past with similar exogenous factors and then use the load profiles from these past periods to form a forecast \cite{Senjyu1998}.
-However, similar profile methods can be insufficient to capture complex patterns, especially over holiday periods which occur only once per year \cite{Chen2010}.
+However, these similar period methods can be insufficient to capture complex patterns, especially over holiday periods which occur only once per year \cite{Chen2010}.
 
-Holiday type indicates which holiday the load profile occurs on - Easter or Christmas for example.
-These different holidays are assigned different integer identifiers (with normal days assigned identifier 0) to form a time series.
+%Holiday type indicates which holiday the load profile occurs on - Easter or Christmas for example.
+%These different holidays are assigned different integer identifiers (with normal days assigned identifier 0) to form a time series.
 
 The forecasting system was provided with historical load and weather profiles from periods that had similar exogenous data to the period of the load profile being forecast.
-Similar load profiles were identified by first finding candidate similar profiles an integer multiple of 1 year $\pm$30 days away from the load profile being forecast.
-These candidates were then filtered down to load profiles with exactly matching hour and minute.
+Similar periods were identified by first finding candidate similar periods an integer multiple of 1 year $\pm$30 days away from the period being forecast.
+These candidates were then filtered down to periods with exactly matching hour and minute.
 
-Then the weighted Euclidean distance between the load profile being forecast and each candidate load profile was calculated using the following features: 
+Then the weighted Euclidean distance between the period being forecast and each candidate similar period was calculated using the following features: 
 maximum future temperature, 
 minimum future temperature,
 maximum past load,
@@ -139,13 +139,14 @@ holiday type,
 day of the week,
 day of the month, and
 month of the year.
-When the holiday type always occurs on the same date each year then the month of the year and day of the month were used, and when the holiday type always occurs on the same day of the week each year then the day of the week was used.
+When the holiday type always occurs on the same date each year then the month of the year and day of the month were used, whereas when the holiday type always occurs on the same day of the week each year then the day of the week was used.
 
-These features are taken from the model input, thus requiring the model input to contain data from both the past and future if similar load profile selection is to be used.
+\textbf{earmark paragraph for deletion}
+These features are taken from the model input, thus requiring the model input to contain data from both the past and future if similar period selection is to be used.
 Typically, 24 hours in both directions is used.
-The candidate load profiles with the lowest distance were selected to be used as input, and their corresponding historical weather data was also supplied as an input.
+The candidate similar periods with the lowest distance were selected to be used as input, and their corresponding historical weather data was also supplied as an input.
 \par
-When training and testing the model the similar load profiles were selected from both the past and the future, as the train and test datasets were only five years each.
+When training and testing the model the similar periods were selected from both the past and the future, as the train and test datasets were only five years each.
 
 \begin{figure}[htbp]
 	\centerline{\includegraphics[trim=0 0.8cm 0 0, width=.35\textwidth]{images/transformer.pdf}}
@@ -320,8 +321,8 @@ The following time series were supplied as input to the model:
 
 The source of the temperature data was Lenah Valley for testing and training, whereas for inference it was from the historical and forecast data for Bruny Island from the Bureau of Meteorology.
 
-Additionally, five similar load profiles were identified using data from R1.
-The data corresponding to the similar load profiles from each of the following time series was provided as input:
+Additionally, five similar periods were identified using data from R1.
+The data over the similar periods for each of the following time series was provided as input:
 \begin{itemize}
 	\item Reclosers R1, R2, R3, and R4 (as separate time series).
 	\item St Helens recloser.
@@ -337,7 +338,7 @@ As a result, approximately 4\% of the data was discarded.
 All data was normalized between zero and one by feature scaling prior to being supplied to the model.
 Additionally, the encoder inputs, decoder inputs and expected outputs were summed with randomly distributed noise with a mean of 0 and standard deviation of 0.01 before being supplied to the model.
 
-The forecasting system was configured with the parameters in table \ref{table:parameters}, with the upper section giving transformer model parameters and the lower section giving weights used for similar load profile selection.
+The forecasting system was configured with the parameters in table \ref{table:parameters}, with the upper section giving transformer model parameters and the lower section giving weights used for similar period selection.
 
 \begin{table}[htbp]
 	\caption{Case study model parameters.}
