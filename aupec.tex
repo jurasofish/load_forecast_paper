@@ -287,8 +287,10 @@ The proposed architecture was implemented for this purpose.
 \end{figure}
 
 \begin{figure}[htbp]
-	\centerline{\includegraphics[width=.35\textwidth]{images/easter_bruny.png}}
-	\caption{Easters on Bruny Island 2008 through 2017. All Easter Sundays are aligned.}
+	\centerline{\includegraphics[width=.40\textwidth]{images/easter_bruny.png}}
+	\caption{Easter load on Bruny Island 2008 through 2017, showing the significant increase in load over this period when compared to the surrounding days. 
+		     All Easter Sundays are aligned.
+     	     Missing/bad data can also be seen in this graph.}
 	\label{fig:bruny_easter}
 \end{figure}
 
@@ -371,15 +373,16 @@ This is contrast to load forecasting models that often tend toward simply repeat
 
 
 \begin{figure}[htbp]
-	\centerline{\includegraphics[width=.35\textwidth]{images/easter_2018_all_forecast.png}}
+	\centerline{\includegraphics[width=.40\textwidth]{images/easter_2018_all_forecast.png}}
 	\caption{Forecasts over the Easter 2018 period.
-		The red dashed line is the actual historical load and the forecasts, performed every 30 minutes, are overlaid.
-		The single system is able to transition smoothly between holiday and normal periods.}
+			 The black dashed line is the actual recorded load, and all forecasts are shown in grey.
+			 The forecast was performed every thirty minutes.
+			 The single system is able to transition smoothly between holiday and normal periods.}
 	\label{fig:easter_forecasts}
 \end{figure}
 
 \begin{figure}[htbp]
-	\centerline{\includegraphics[width=.35\textwidth]{images/bruny_mape.png}}
+	\centerline{\includegraphics[width=.40\textwidth]{images/bruny_mape.png}}
 	\caption{Mean absolute percentage error of each point in the forecast when evaluated on every Easter, Queen's Birthday, and July school holiday period from 2015 through 2018 (2018 excludes July).}
 	\label{fig:bruny_mape}
 \end{figure}
@@ -392,7 +395,7 @@ This is evidence that the model has been able to generalize from the training da
 
 \begin{figure}[htbp]
 	\centerline{\includegraphics[width=.35\textwidth]{images/errors_histogram.png}}
-	\caption{Distribution of forecast error.
+	\caption{Distribution of forecast error when evaluated over the same periods as Figure \ref{fig:bruny_mape}.
 		     Notably, this approximates white noise.}
 	\label{fig:bruny_hist}
 \end{figure}
@@ -452,9 +455,7 @@ This work has been supported by TasNetworks, who also provided network and deman
 	\item Conclusion
 	\item Abstract
 	\item italicise \textit{similar days} maybe to make it clear that they are "a thing" [evan]
-	\item figure \ref{fig:bruny_easter} is pretty hard to view easily. text is too small, probably too many days shown. You may as well use this opportunity to show how the profiles look over just a few days perhaps.. ie give the reader a sense for the difficulty of the problem etc. [evan]
 	\item  .[figure \ref{fig:bruny_network}]  there is also a North Bruny A load  that is fed from Feeder A. Prob not too important to make it so accurate.... but just looks a little like there are only two lumped loads on feeder A... no big deal  [evan]
-	\item .[figure \ref{fig:easter_forecasts}] it is too hard to see the forecast vs actual for this many days. really need to zoom in I think... text too small on figs too
 	\item the similar load profile section is still crap
 	\item give a brief over view of tasmanian distribution network in the intro [neg]
 	\item figures right and left to (a) and (b) [neg]
@@ -462,9 +463,7 @@ This work has been supported by TasNetworks, who also provided network and deman
 	\item fig gridlines (plotly) [neg]
 	\item clarify use of future temperature, etc. in similar day selection [paul]
 	\item the description of where the model gets its similar day values from is pretty bad. Needs to be revised [paul]
-	\item expand figure \ref{fig:bruny_easter} to show fewer days. [paul]
 	\item reconfigure figure \ref{fig:bruny_network} to consume less vertical space. Could make it horizontal. [paul]
-	\item stretch out figure \ref{fig:easter_forecasts} to show fewer days [paul]
 	\item why have RNNs recently been popular for load forecasting [paoli]
 	\item why is transformer better than RNN [paoli]
 	\item make it clearer that similar profiles can come from anywhere, eg. st helens [paoli]
