@@ -185,9 +185,8 @@ Specifically, a matrix lookup table of embeddings $\boldsymbol{E} \in \mathbb{R}
 The primary innovation of the Transformer architecture is multi-head attention.
 Generic attention and dot-product attention will now be described as these are prerequisite to describing multi-head attention.
 
-Given a single query vector and a set of key and value pairs (with each key and each value being a vector), an attention function matches the query to the keys to produce a weight for each key.
+Given a single query vector and a set of key and value pairs (with each key and each value being a vector), an attention function matches the query to the keys to produce a weight for each key by applying an arbitrary fitness function.
 These key weights are then used to create an output vector comprised of the weighted sum of the values, where each value's weight is the weight assigned to its corresponding key. 
-Matching the query to the keys is performed with an arbitrary fitness function.
 
 Scaled dot-product attention, shown in Figure \ref{fig:multihead} (left), is a specific implementation of an attention function. 
 It uses the dot product of the query and each key to generate the weights, which are then passed through a softmax function such that the sum of all weights is equal to 1.
