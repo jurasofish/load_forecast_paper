@@ -238,6 +238,8 @@ The outputs are then normalized by applying layer normalization \cite{Ba2016}, a
 
 \subsection{Dropout and Training}
 To help prevent overfitting to the training data, dropout \cite{srivastava14a} is applied during training at the output of the positional encoding of both the encoder and decoder, and immediately after the softmax operation in the scaled dot-product attention.
+Additionally, the encoder inputs, decoder inputs and expected outputs were summed with randomly distributed noise with a mean of 0 and standard deviation of 0.01 before being supplied to the model during training.
+
 The model is trained using the Adam optimizer \cite{Kingma2014} and a modified sum of errors squared loss function.
 Given a vector $\boldsymbol{y}$ of predictions from the model and a vector $\boldsymbol{y'}$ of expected predictions the loss function $l$ is given by 
 \begin{equation}
@@ -320,11 +322,6 @@ The data over the similar periods for each of the following time series was prov
 In total, 36 time series were provided as input to the model.
 The data from St Helens was included because it was observed to display similar patterns to Bruny Island around holiday periods.
 It was theorized that it may provide additional information to the model, while also serving as a proof of concept for the ability to supply arbitrary exogenous data to the model.
-
-If any value in an input or expected output sequence was bad or missing then the sequence was not used.
-As a result, approximately 4\% of the data was discarded.
-All data was normalized between zero and one by feature scaling prior to being supplied to the model.
-Additionally, the encoder inputs, decoder inputs and expected outputs were summed with randomly distributed noise with a mean of 0 and standard deviation of 0.01 before being supplied to the model.
 
 The forecasting system was configured with the parameters in table \ref{table:parameters}, with the upper section giving transformer model parameters and the lower section giving weights used for similar period selection.
 
