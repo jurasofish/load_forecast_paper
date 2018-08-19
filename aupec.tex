@@ -135,18 +135,16 @@ Then the weighted Euclidean distance between the period being forecast and each 
 maximum future temperature, 
 minimum future temperature,
 maximum past load,
-holiday type, 
-day of the week,
-day of the month, and
-month of the year.
+current holiday type, 
+current day of the week,
+current day of the month, and
+current month of the year.
+The holiday type indicates the current holiday --- Easter or Christmas for example --- and is encoded as a time series of integers with a different integer for each holiday.
 When the holiday type always occurs on the same date each year then the month of the year and day of the month were used, whereas when the holiday type always occurs on the same day of the week each year then the day of the week was used.
+The candidate similar periods with the lowest Euclidean distance were selected as the final set of similar periods.
 
-\textbf{earmark paragraph for deletion}
-These features are taken from the model input, thus requiring the model input to contain data from both the past and future if similar period selection is to be used.
-Typically, 24 hours in both directions is used.
-The candidate similar periods with the lowest distance were selected to be used as input, and their corresponding historical weather data was also supplied as an input.
-\par
 When training and testing the model the similar periods were selected from both the past and the future, as the train and test datasets were only five years each.
+It was assumed that, for testing, there were no changes in the patterns underlying the load profile over the duration of the testing set.
 
 \begin{figure}[htbp]
 	\centerline{\includegraphics[trim=0 0.8cm 0 0, width=.35\textwidth]{images/transformer.pdf}}
@@ -457,12 +455,8 @@ This work has been supported by TasNetworks, who also provided network and deman
 	\item Conclusion
 	\item Abstract
 	\item italicise \textit{similar days} maybe to make it clear that they are "a thing" [evan]
-	\item the similar load profile section is still crap
 	\item give a brief over view of tasmanian distribution network in the intro [neg]
-	\item clarify use of future temperature, etc. in similar day selection [paul]
-	\item the description of where the model gets its similar day values from is pretty bad. Needs to be revised [paul]
 	\item why have RNNs recently been popular for load forecasting [paoli]
-	\item make it clearer that similar profiles can come from anywhere, eg. st helens [paoli]
 	\item lord that bumpy section in the MAPE graph needs some love
 	
 	\item \textbf{PAUL} - Using all ten years in inference is certainly possible and probably valid. Need to harass a statistician and get their opinion on the validity. Would also require a fair modification to the program :(  currently inference mode IS test mode.
