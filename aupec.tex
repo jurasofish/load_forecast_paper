@@ -119,7 +119,7 @@ The points in $X$ and $Y$ are evenly spaced in time, e.g. 30 or 60 minutes apart
 $X$ and $Y$ are aligned on any five minute interval, allowing the forecast to be updated every five minutes.
 
 
-\subsection{Similar Period Selection}
+\subsection{Similar Period Selection} \label{simperiod}
 Load profiles are influenced by exogenous factors such as weather, day of the week, and holiday type \cite{Weron2006}.
 A simple and intuitive method of load forecasting is to find periods in the past with similar exogenous factors and then use the load profiles from these past periods to form a forecast \cite{Senjyu1998}.
 However, these similar period methods can be insufficient to capture complex patterns, especially over holiday periods which occur only once per year \cite{Chen2010}.
@@ -319,7 +319,7 @@ The following time series were supplied as input to the model:
 
 The source of the temperature data was Lenah Valley for testing and training, whereas for inference it was from the historical and forecast data for Bruny Island from the Bureau of Meteorology.
 
-Additionally, five similar periods were identified using data from R1.
+Additionally, five similar periods were identified using data from R1 by the process described in section \ref{simperiod}.
 The data over the similar periods for each of the following time series was provided as input:
 \begin{itemize}
 	\item Reclosers R1, R2, R3, and R4 (as separate time series).
@@ -454,7 +454,6 @@ This work has been supported by TasNetworks, who also provided network and deman
 \begin{itemize}
 	\item Conclusion
 	\item Abstract
-	\item italicise \textit{similar days} maybe to make it clear that they are "a thing" [evan]
 	\item give a brief over view of tasmanian distribution network in the intro [neg]
 	\item lord that bumpy section in the MAPE graph needs some love
 	
