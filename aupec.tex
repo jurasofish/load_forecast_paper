@@ -113,11 +113,6 @@ This allows a larger degree of parallelism to reduce training time, while also a
 
 The proposed forecasting system uses a Transformer neural network model combined with similar period selection.
 
-In general, the forecasting system can be described as taking in a multivariate time series $X = (\boldsymbol{x}_1, ..., \boldsymbol{x}_P)$, with $\boldsymbol{x}_t \in \mathbb{R}^S$ denoting a point in time comprising $S$ observations (a single point in an S-variate time series), and producing a univariate time series forecast $Y = (\boldsymbol{y}_1, ..., \boldsymbol{y}_R)$ with $\boldsymbol{y}_t \in \mathbb{R}^1$ and $P$ and $R$ being the input and output time series lengths respectively.
-
-The points in $X$ and $Y$ are evenly spaced in time, e.g. 30 or 60 minutes apart, and this spacing is the same for both $X$ and $Y$.
-$X$ and $Y$ are aligned on any five minute interval, allowing the forecast to be updated every five minutes.
-
 
 \subsection{Similar Period Selection} \label{simperiod}
 Load profiles are influenced by exogenous data such as weather, day of the week, and holiday type \cite{Weron2006}.
@@ -154,8 +149,9 @@ It was assumed that, for testing, there were no changes in the patterns underlyi
 
 \subsection{Transformer}
 The transformer neural network architecture, shown in figure \ref{fig:transformer}, was introduced by \cite{Vaswani2017} in 2017 and at the time was the state of the art in neural machine translation.
-This architecture follows the standard sequence-to-sequence/encoder-decoder architecture: the encoder transforms an input $X = (\boldsymbol{x}_1, ..., \boldsymbol{x}_P)$ into a latent representation $Z = (\boldsymbol{z}_1, ..., \boldsymbol{z}_M)$, and the decoder transforms $Z$ into an output sequence $Y = (\boldsymbol{y}_1, ..., \boldsymbol{y}_R)$, where $x_t$, $y_t$, and $z_t$ are of arbitrary dimension.
-The latent representation is used solely by the model as an internal representation of the input data.
+This architecture follows the standard sequence-to-sequence/encoder-decoder architecture: the encoder transforms an input sequence $X = (\boldsymbol{x}_1, ..., \boldsymbol{x}_P)$ into a latent representation $Z = (\boldsymbol{z}_1, ..., \boldsymbol{z}_M)$, and the decoder transforms $Z$ into an output sequence $Y = (\boldsymbol{y}_1, ..., \boldsymbol{y}_R)$, where $x_t$, $y_t$, and $z_t$ are of arbitrary dimension.
+This matches the requirements of a load forecasting system, where $P$ is the length of the time series input, $x_t$ is of dimension equal to the number of variables in the input time series, $R$ is the length of the time series output, and $y_t$ is of dimension equal to the number of variables in the output time series.
+The latent representation $Z$ is used solely by the model as an internal representation of the input data.
 
 The encoder is constructed of a stack of $L$ identical layers, each containing two sub-layers.
 The first is multi-head self-attention and the second is a position-wise feed-foward network, both discussed below.
