@@ -246,8 +246,7 @@ Given a vector $\boldsymbol{y}$ of predictions from the model and a vector $\bol
 l = \sum_{t=0}^{R}((\boldsymbol{y}_t - \boldsymbol{y'}_t)^2 \times |\boldsymbol{y'}_t|^c)
 \end{equation}
 where $c$ is a model hyperparameter.
-For $c>0$ this function accentuates loss when the actual value is large - this is useful for a load forecast as times of maximum demand are likely important for planning purposes.
-When $c=0$ this is unadjusted sum of errors squared, and for $c<0$ this will accentuate loss when the actual value is small.
+For $c>0$ this function accentuates loss when the actual value is large --- making the model more accurate at forecasting peaks.
 
 When testing or being used for inference, the decoder outputs are generated sequentially one at a time.
 After each output value is generated it is shifted right by one and populated in the decoder input and the model is executed again until all the outputs have been generated.
