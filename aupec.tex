@@ -115,7 +115,7 @@ The proposed forecasting system uses a Transformer neural network model combined
 
 In general, the forecasting system can be described as taking in a multivariate time series $X = (\boldsymbol{x}_1, ..., \boldsymbol{x}_P)$, with $\boldsymbol{x}_t \in \mathbb{R}^S$ denoting a point in time comprising $S$ observations (a single point in an S-variate time series), and producing a univariate time series forecast $Y = (\boldsymbol{y}_1, ..., \boldsymbol{y}_R)$ with $\boldsymbol{y}_t \in \mathbb{R}^1$ and $P$ and $R$ being the input and output time series lengths respectively.
 
-The points in $X$ and $Y$ are evenly spaced, e.g. 30 or 60 minutes apart, and this is the same for both $X$ and $Y$.
+The points in $X$ and $Y$ are evenly spaced in time, e.g. 30 or 60 minutes apart, and this spacing is the same for both $X$ and $Y$.
 $X$ and $Y$ are aligned on any five minute interval, allowing the forecast to be updated every five minutes.
 
 
