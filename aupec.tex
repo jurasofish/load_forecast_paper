@@ -253,7 +253,7 @@ When testing or being used for inference, the decoder outputs are generated sequ
 After each output value is generated it is shifted right by one and populated in the decoder input and the model is executed again until all the outputs have been generated.
 Values that have not yet been generated are set to zero in the decoder input.
 These zero values do not affect the output of the decoder, as the decoder self-attention is masked so that it does not make use of them.
-When training, the decoder input is set to the known expected value and the model is executed a single time.
+When training, the decoder input is set to the known expected value and the model is executed --- and the learned parameters updated --- a single time.
 
 
 \section{Case Study}
