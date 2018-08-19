@@ -108,9 +108,10 @@ In this paper, all load profiles are measured in kVA and are univariate.
 
 Recurrent Neural Networks (RNN) have recently been popular for load forecasting in electricity networks \cite{Kong2018}.
 However, RNNs have been out-performed by the Transformer \cite{Vaswani2017} model in several domains including machine translation \cite{Vaswani2017} (where the architecture was first proposed and applied), medical time series forecasting and regression \cite{Song2017}, and image generation \cite{Parmar2018}.
-\par
+The Transformer is a purely attention-based neural network model and does not rely on recursion like traditional RNNs.
+This allows a larger degree of parallelism to reduce training time, while also allowing the model to effectively handle long-range dependencies in the inputs.
+
 The proposed forecasting system uses a Transformer neural network model combined with similar load profile selection.
-The basis for the Transformer model is... \textbf{add a descriptive sentence}
 
 In general, the forecasting system can be described as taking in a multivariate time series $X = (\boldsymbol{x}_1, ..., \boldsymbol{x}_P)$, with $\boldsymbol{x}_t \in \mathbb{R}^S$ denoting a point in time comprising $S$ observations (a single point in an S-variate time series), and producing a univariate time series forecast $Y = (\boldsymbol{y}_1, ..., \boldsymbol{y}_R)$ with $\boldsymbol{y}_t \in \mathbb{R}^1$ and $P$ and $R$ being the input and output time series lengths respectively.
 
@@ -460,7 +461,6 @@ This work has been supported by TasNetworks, who also provided network and deman
 	\item clarify use of future temperature, etc. in similar day selection [paul]
 	\item the description of where the model gets its similar day values from is pretty bad. Needs to be revised [paul]
 	\item why have RNNs recently been popular for load forecasting [paoli]
-	\item why is transformer better than RNN [paoli]
 	\item make it clearer that similar profiles can come from anywhere, eg. st helens [paoli]
 	\item lord that bumpy section in the MAPE graph needs some love
 	
