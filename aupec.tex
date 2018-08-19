@@ -271,7 +271,6 @@ In order to peak-shift while making efficient use of the batteries, the NAC requ
 \begin{figure}[htbp]
 	\centerline{\includegraphics[width=.40\textwidth]{images/easter_bruny.png}}
 	\caption{Easter load on Bruny Island 2008 through 2017, showing the significant increase in load over this period when compared to the surrounding days. 
-		     All Easter Sundays are aligned.
      	     Unusable missing/bad data can also be seen in this graph.}
 	\label{fig:bruny_easter}
 \end{figure}
@@ -299,7 +298,7 @@ The following time series were supplied as input to the model:
 	\item Holiday type.
 \end{itemize}
 
-The source of the temperature data was Lenah Valley for testing and training, whereas for inference it was from the historical and forecast data for Bruny Island from the Bureau of Meteorology.
+When used for inference, temperature forecasts were obtained from the Bureau of Meteorology.
 
 Additionally, five similar periods were identified using data from R1 by the process described in section \ref{simperiod}.
 The data over the similar periods for each of the following time series was provided as input:
@@ -310,7 +309,7 @@ The data over the similar periods for each of the following time series was prov
 \end{itemize}
 
 In total, 36 time series were provided as input to the model.
-The data from St Helens was included because it was observed to display similar patterns to Bruny Island around holiday periods and so was able to supply additional information to the model.
+St Helens was included because it was observed to display similar patterns to Bruny Island around holiday periods.
 
 The forecasting system was configured with the parameters in table \ref{table:parameters}, with the upper section giving transformer model parameters and the lower section giving weights used for similar period selection.
 
@@ -365,8 +364,8 @@ This is contrast to load forecasting models that often tend toward simply repeat
 The performance of the forecaster was evaluated on every Easter, Queen's Birthday, and July school holiday period from 2015 through 2018 (2018 excludes July).
 The results are shown in Figure \ref{fig:bruny_mape}, showing the mean absolute percentage error (MAPE) as a function of forecast horizon.
 As expected, the forecaster achieves higher performance on predictions in the near future.
-Furthermore, the errors between predicted and actual load are fairly evenly distributed around zero, shown in Figure \ref{fig:bruny_hist}.
-There is some skew in the errors toward under-predicting, but overall this is evidence that the model has been able to generalize from the training data, as the training data is mostly comprised of normal days.
+Furthermore, the errors between predicted and actual load are fairly evenly distributed around -15 kVA, shown in Figure \ref{fig:bruny_hist}.
+This indicates that the model has some room for improvement when predicting large holiday peaks, but overall this is evidence that the model has been able to generalize from the training data, as the training data is mostly comprised of normal days.
 
 \begin{figure}[htbp]
 	\centerline{\includegraphics[width=.35\textwidth]{images/errors_histogram.png}}
@@ -393,7 +392,7 @@ Without this support from the batteries, the generator would have been required 
 
 
 \section{Conclusion}
-This paper presents a novel neural network-based load forecasting system and applies it to Bruny Island, Tasmania, for peak-shifting with residential batteries.
+This paper presents a novel neural network-based load forecasting system and applies it to Bruny Island, Tasmania, for the purpose of peak-shifting with residential batteries.
 The single load forecasting system was able to accurately predict peaks both during abnormal holiday periods and during periods of normal load.
 
 
