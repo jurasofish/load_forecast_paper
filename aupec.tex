@@ -105,7 +105,7 @@ The proposed forecasting system uses a Transformer neural network model combined
 
 \subsection{Similar Period Selection} \label{simperiod}
 Load profiles are influenced by exogenous data such as weather, day of the week, and holiday type \cite{Weron2006}.
-A simple and intuitive method of load forecasting is to find periods in the past with similar exogenous data and then use the load profiles from these past periods to form a forecast \cite{Senjyu1998}.
+A simple and intuitive method of load forecasting is to find periods in the past with similar exogenous data to the period being forecast and then use the load profiles from these past periods to form a forecast \cite{Senjyu1998}.
 However, these similar period methods can be insufficient to capture complex patterns, especially over holiday periods which occur only once per year \cite{Chen2010}.
 
 %Holiday type indicates which holiday the load profile occurs on - Easter or Christmas for example.
@@ -151,7 +151,7 @@ The input to the decoder is the previous output of the decoder, but shifted righ
 This requires an iterative approach to be used to predict all points in the time series.
 The self-attention in the decoder is masked so that when evaluating a query at time $t$ it is unable to assign large weights to keys/values occurring after $t$ in time, ensuring the decoder is autoregressive.
 
-The individual sections of the transformer are discussed in the following sections.
+The individual components of the transformer are discussed in the following sections.
 
 \subsection{Input Embedding}
 The input $\boldsymbol{X} \in \mathbb{R}^{T \times N}$, where the rows represent $T$ points in time and the columns represent $N$ time series, is embedded by applying a dense layer to produce an embedded $\boldsymbol{Y} \in \mathbb{R}^{T \times d}$, with $d$ being the hidden dimension of of the model.
@@ -243,7 +243,7 @@ When testing or being used for inference, the decoder outputs are generated sequ
 After each output value is generated it is shifted right by one and populated in the decoder input and the model is executed again until all the outputs have been generated.
 Values that have not yet been generated are set to zero in the decoder input.
 These zero values do not affect the output of the decoder, as the decoder self-attention is masked so that it does not make use of them.
-When training, the decoder input is set to the known expected value and the model is executed --- and the learned parameters updated --- a single time.
+When training, the decoder input is set to the known expected value and the model is executed --- and the learnable parameters updated --- a single time.
 
 
 \section{Case Study}
