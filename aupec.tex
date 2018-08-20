@@ -215,7 +215,7 @@ Given an input $\boldsymbol{X} \in \mathbb{R}^{T \times d}$, the output $\boldsy
 \subsection{Decoder Dense Output}
 The output of the decoder is passed through a dense layer to project the hidden dimension to the desired dimension of 1.
 The layer is implemented per Equation \ref{dense_layer} where $\boldsymbol{W} \in \mathbb{R}^{d \times 1}$ is a learned weight matrix and $\boldsymbol{b} \in \mathbb{R}^{1}$ is a learned bias vector.
-
+By adjusting the dimension of $\boldsymbol{W}$ and $\boldsymbol{b}$ the network could be modified to perform multiple forecasts simultaneously.
 
 
 \subsection{Residuals \& Normalization}
