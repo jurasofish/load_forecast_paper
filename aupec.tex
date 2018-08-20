@@ -151,7 +151,7 @@ Both sub-layers have a residual connection around them and are fed into a normal
 The decoder is similar to the encoder except for a third layer which implements multi-head attention on the outputs of the encoder.
 The input to the decoder is the previous output of the decoder, but shifted right by one.
 This requires an iterative approach to be used to predict all points in the time series.
-The self-attention in the decoder is masked so that when evaluating a query at time $t$ it does not assign large weights to keys/values occurring after $t$ in time, making the decoder is autoregressive.
+The self-attention in the decoder is masked so that when evaluating a query at time $t$ it does not assign large weights to keys/values occurring after $t$ in time, making the decoder autoregressive.
 
 The individual components of the transformer are discussed in the following sections.
 
