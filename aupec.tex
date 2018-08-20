@@ -179,6 +179,12 @@ Generic attention and dot-product attention will now be described as these are p
 Given a single query vector and a set of key and value pairs (with each key and each value being a vector), an attention function matches the query to the keys to produce a weight for each key by applying an arbitrary fitness function.
 These key weights are then used to create an output vector comprised of the weighted sum of the values, where each value's weight is the weight assigned to its corresponding key. 
 
+\begin{figure}[htbp]
+	\centerline{\includegraphics[width=.35\textwidth]{images/multihead_attn.pdf}}
+	\caption{Multiheaded attention (b) splits the key, query, and value matrices and applies scaled dot product attention (a) on each in parallel before concatenating the result to return the data to its original dimension.}
+	\label{fig:multihead}
+\end{figure}
+
 Scaled dot-product attention, shown in Figure \ref{fig:multihead} (a), is a specific implementation of an attention function. 
 It uses the dot product of the query and each key to generate the weights, which are then passed through a softmax function such that the sum of all weights is equal to 1.
 In practice, the query row vectors are combined into a single matrix, $\boldsymbol{Q}$, allowing cheap matrix calculations to be used to evaluate the attention outputs in parallel.
@@ -199,12 +205,6 @@ The dense layer function on the output is defined by Equation \ref{dense_layer} 
 
 The dense layer combined with the split allows the multi-head attention to pick out information from different subspaces in the input and direct these to different attention heads.
 This is in contrast to a single head which must average all subspaces.
-
-\begin{figure}[htbp]
-	\centerline{\includegraphics[width=.35\textwidth]{images/multihead_attn.pdf}}
-	\caption{Multiheaded attention (b) splits the key, query, and value matrices and applies scaled dot product attention (a) on each in parallel before concatenating the result to return the data to its original dimension.}
-	\label{fig:multihead}
-\end{figure}
 
 \subsection{Feed-forward}
 The feed-forward layer is a two layer network with a rectified linear unit in the middle.
