@@ -231,7 +231,7 @@ The outputs are then normalized by applying layer normalization \cite{Ba2016}, a
 
 \subsection{Dropout and Training}
 To help prevent overfitting to the training data, dropout \cite{srivastava14a} is applied during training at the output of both positional encoding layers, and immediately after the softmax operation in all multi-head attention layers.
-Additionally, the encoder inputs, decoder inputs and expected outputs were summed with randomly distributed noise with a mean of 0 and standard deviation of 0.01 before being supplied to the model during training.
+Additionally, the encoder inputs, decoder inputs, and expected outputs were summed with randomly distributed noise with a mean of 0 and standard deviation of 0.01 before being supplied to the model during training.
 
 The model is trained using the Adam optimizer \cite{Kingma2014} and a modified sum of errors squared loss function.
 Given a vector $\boldsymbol{y}$ of predictions from the model and a vector $\boldsymbol{y'}$ of expected predictions the loss function $l$ is given by 
