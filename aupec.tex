@@ -101,7 +101,6 @@ Recurrent Neural Networks (RNN) have recently been popular for load forecasting 
 However, RNNs have been out-performed by the Transformer \cite{Vaswani2017} model in several domains including machine translation \cite{Vaswani2017} (where the architecture was first proposed and applied), medical time series forecasting and regression \cite{Song2017}, and image generation \cite{Parmar2018}.
 The Transformer is a purely attention-based neural network model and does not rely on recursion like traditional RNNs.
 This allows a larger degree of parallelism to reduce training time, while also allowing the model to effectively handle long-range dependencies in the inputs.
-
 The proposed forecasting system uses a Transformer neural network model combined with similar period selection.
 
 
@@ -152,8 +151,6 @@ The decoder is similar to the encoder except for a third layer which implements 
 The input to the decoder is the previous output of the decoder, but shifted right by one.
 This requires an iterative approach to be used to predict all points in the time series.
 The self-attention in the decoder is masked so that when evaluating a query at time $t$ it does not assign large weights to keys/values occurring after $t$ in time, making the decoder autoregressive.
-
-The individual components of the transformer are discussed in the following sections.
 
 \subsection{Input Embedding}
 The input $\boldsymbol{X} \in \mathbb{R}^{T \times N}$, where the rows represent $T$ points in time and the columns represent $N$ time series, is embedded by applying a dense layer to produce an embedded $\boldsymbol{X'} \in \mathbb{R}^{T \times d}$, where $d$ is the hidden dimension of the model and $d$ is the same for both the encoder and the decoder.
